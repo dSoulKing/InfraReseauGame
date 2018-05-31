@@ -7,15 +7,15 @@ public class MoveWorker3 : MonoBehaviour
 
     public GameObject workerMove1;
     public GameObject workerMove2;
-    public SpriteRenderer spriteWorker1;
-    public SpriteRenderer spriteWorker2;
-    public Sprite bigHead;
+    public Material bigHead;
     public GameObject clickToSetUp3;
 
     public GameObject warning;
 
     public GameObject travel3;
 
+    private Renderer spriteWorker1;
+    private Renderer spriteWorker2;
     private GameObject[] spheres;
     private int i;
     private float timeToMove;
@@ -23,6 +23,9 @@ public class MoveWorker3 : MonoBehaviour
 
     void Start()
     {
+        spriteWorker1 = workerMove1.GetComponent<Renderer>();
+        spriteWorker2 = workerMove2.GetComponent<Renderer>();
+
         i = 0;
         timeToMove = 4f;
         timeToTilt = 0f;
@@ -53,8 +56,8 @@ public class MoveWorker3 : MonoBehaviour
             }
             else if (i == 9)
             {
-                spriteWorker1.sprite = bigHead;
-                spriteWorker2.sprite = bigHead;
+                spriteWorker1.material = bigHead;
+                spriteWorker2.material = bigHead;
                 Instantiate(clickToSetUp3, clickToSetUp3.transform.position, clickToSetUp3.transform.rotation);
             }
             else if (i == 10)

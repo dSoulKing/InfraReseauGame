@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundBack : MonoBehaviour {
 
-    public Camera mainCamera;
+    private Camera mainCamera;
 
     public GameObject roofBoss;
     public GameObject roofEntry;
@@ -27,6 +27,7 @@ public class GroundBack : MonoBehaviour {
 
     void Start()
     {
+        mainCamera = Camera.main;
         mainCamera.gameObject.SetActive(true);
         mainCamera.orthographic = true;
     }

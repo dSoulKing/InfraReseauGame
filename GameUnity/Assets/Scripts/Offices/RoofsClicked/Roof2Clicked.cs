@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Roof2Clicked : MonoBehaviour {
 
-    public Camera mainCamera;
+    private Camera mainCamera;
     public GameObject thisRoof;
 
     public static bool cam2;
 
     void Start()
     {
+        mainCamera = Camera.main;
         mainCamera.gameObject.SetActive(true);
         mainCamera.orthographic = true;
         thisRoof.SetActive(true);

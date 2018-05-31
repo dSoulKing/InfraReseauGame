@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Roof5Clicked : MonoBehaviour {
 
-    public Camera mainCamera;
+    private Camera mainCamera;
     public GameObject thisRoof;
 
     public static bool cam5;
@@ -12,6 +12,7 @@ public class Roof5Clicked : MonoBehaviour {
 
     void Start()
     {
+        mainCamera = Camera.main;
         eP2 = true;
         mainCamera.gameObject.SetActive(true);
         mainCamera.orthographic = true;
