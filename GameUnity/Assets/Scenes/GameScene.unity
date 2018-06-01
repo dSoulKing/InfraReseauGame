@@ -3494,7 +3494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worker1: {fileID: 1483559535990798, guid: a4d48794a29249e49b9dbcc76af5e90e, type: 2}
   worker2: {fileID: 1702755684946894, guid: 3489119074450054f84f87cfbb19a586, type: 2}
-  worker3: {fileID: 1452999027371472, guid: 421e188921d4b68498c31234c3a27420, type: 2}
+  worker3: {fileID: 1861547028986864, guid: 421e188921d4b68498c31234c3a27420, type: 2}
   helpBubble: {fileID: 1048546732272494, guid: 0bb3d6fbd16c08d42a38e9c0e0dd4091, type: 2}
   exclamationPoint1: {fileID: 1861101987755358, guid: c608c19e117b8ff4493283201e73359e,
     type: 2}
