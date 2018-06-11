@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
     public static int totalPoints;
     public Text pointText;
 
-    private Vector3 positionWorker;
+    //private Vector3 positionWorker;
     private Vector3 positionExclamationPoint;
     private Vector3 positionHelpBubble;
 
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
         numberWorker = 0;
         numberExclamationPoint = 0;
 
-        positionWorker = new Vector3(8.699707f, 4.293945f, 11.82227f);
+        //positionWorker = new Vector3(8.699707f, 4.293945f, 11.82227f);
         positionExclamationPoint = new Vector3(1.5f, 2.22f, 7);
         positionHelpBubble = new Vector3(1.735f, 1, 8.752f);
 
@@ -78,21 +78,21 @@ public class GameController : MonoBehaviour {
             numberWorker++;
             if (numberWorker == 1)
             {
-                Instantiate(worker1, positionWorker, Quaternion.identity);
+                Instantiate(worker1, worker1.transform.position, Quaternion.identity);
                 timeNewWorker = 25f;
 
                 Instantiate(clickToSetUp1, clickToSetUp1.transform.position, clickToSetUp1.transform.rotation);
             }
             else if (numberWorker == 2)
             {
-                Instantiate(worker2, positionWorker, Quaternion.identity);
+                Instantiate(worker2, worker2.transform.position, Quaternion.identity);
                 timeNewWorker = 15f;
 
                 Instantiate(clickToSetUp2, clickToSetUp2.transform.position, clickToSetUp2.transform.rotation);
             }
             else if (numberWorker == 3)
             {
-                Instantiate(worker3, positionWorker, Quaternion.identity);
+                Instantiate(worker3, worker3.transform.position, Quaternion.identity);
                 timeNewWorker = 5000f;
             }
         }
