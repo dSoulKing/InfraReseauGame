@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RebackServer : MonoBehaviour {
-    
+
+    public GameObject allServer;
+
     private Camera mainCamera;
 
     private void OnMouseDown()
@@ -22,5 +24,7 @@ public class RebackServer : MonoBehaviour {
 
 
         GameController.gamePause = false;
+
+        allServer.SetActive(false);
     }
 }

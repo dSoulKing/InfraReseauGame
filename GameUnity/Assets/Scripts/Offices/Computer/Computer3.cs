@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Computer3 : MonoBehaviour {
 
+    public GameObject allServer;
+
     private Camera mainCamera;
 
     void OnMouseDown()
@@ -19,6 +21,8 @@ public class Computer3 : MonoBehaviour {
 
         InputManager.inputON = true;
         GameController.gamePause = true;
+
+        allServer.SetActive(true);
     }
 
     
