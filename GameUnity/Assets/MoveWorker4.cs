@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveWorker3 : MonoBehaviour
+public class MoveWorker4 : MonoBehaviour
 {
 
     public GameObject workerMove1;
     public GameObject workerMove2;
     public Material bigHead;
-    public GameObject clickToSetUp3;
 
     public GameObject warning;
 
-    public GameObject travel3;
+    public GameObject travel4;
 
     private Renderer spriteWorker1;
     private Renderer spriteWorker2;
@@ -27,17 +26,16 @@ public class MoveWorker3 : MonoBehaviour
         spriteWorker2 = workerMove2.GetComponent<Renderer>();
 
         i = 0;
-        timeToMove = 4f;
+        timeToMove = 1f;
         timeToTilt = 0f;
-        spheres = new GameObject[15];
-
+        spheres = new GameObject[20];
         workerMove1.SetActive(false);
-        workerMove1.transform.Rotate(0, -90, 0, Space.World);
-        workerMove2.transform.Rotate(0, -90, 0, Space.World);
+        workerMove1.transform.Rotate(0, 90, 0, Space.World);
+        workerMove2.transform.Rotate(0, 90, 0, Space.World);
 
-        for (int y = 0; y < 15; y++)
+        for (int y = 0; y < 16; y++)
         {
-            spheres[y] = travel3.transform.GetChild(y).gameObject;
+            spheres[y] = travel4.transform.GetChild(y).gameObject;
         }
     }
 
@@ -49,26 +47,20 @@ public class MoveWorker3 : MonoBehaviour
 
         if (timeToMove <= 0 && i < spheres.Length)
         {
-            if (i == 8)
+            if (i == 4)
             {
                 workerMove1.transform.Rotate(0, 90, 0, Space.World);
                 workerMove2.transform.Rotate(0, 90, 0, Space.World);
             }
-            else if (i == 9)
-            {
-                spriteWorker1.material = bigHead;
-                spriteWorker2.material = bigHead;
-                Instantiate(clickToSetUp3, clickToSetUp3.transform.position, clickToSetUp3.transform.rotation);
-            }
-            else if (i == 10)
+            else if (i == 11)
             {
                 workerMove1.transform.Rotate(0, -90, 0, Space.World);
                 workerMove2.transform.Rotate(0, -90, 0, Space.World);
             }
             else if (i == 12)
             {
-                workerMove1.transform.Rotate(0, 90, 0, Space.World);
-                workerMove2.transform.Rotate(0, 90, 0, Space.World);
+                spriteWorker1.material = bigHead;
+                spriteWorker2.material = bigHead;
             }
             else if (i == 13)
             {
@@ -77,9 +69,15 @@ public class MoveWorker3 : MonoBehaviour
             }
             else if (i == 14)
             {
-                workerMove1.transform.Rotate(0, 90, 0, Space.World);
-                workerMove2.transform.Rotate(0, 90, 0, Space.World);
+                workerMove1.transform.Rotate(0, -90, 0, Space.World);
+                workerMove2.transform.Rotate(0, -90, 0, Space.World);
             }
+            else if (i == 15)
+            {
+                workerMove1.transform.Rotate(0, -90, 0, Space.World);
+                workerMove2.transform.Rotate(0, -90, 0, Space.World);
+            }
+
 
             if (i % 2 == 0)
             {
@@ -87,7 +85,7 @@ public class MoveWorker3 : MonoBehaviour
                 workerMove1.transform.position = spheres[i].transform.position;
                 Destroy(spheres[i]);
                 workerMove2.SetActive(false);
-                timeToMove = 4f;
+                timeToMove = 1f;
             }
             else if (i % 2 == 1)
             {
@@ -95,12 +93,12 @@ public class MoveWorker3 : MonoBehaviour
                 workerMove2.transform.position = spheres[i].transform.position;
                 Destroy(spheres[i]);
                 workerMove1.SetActive(false);
-                timeToMove = 4f;
+                timeToMove = 1f;
             }
             i++;
         }
 
-        if (i == spheres.Length && GameController.boolSetUp3 && !GameController.gamePause)
+        if (i == spheres.Length && GameController.boolSetUp1 && !GameController.gamePause)
         {
             timeToTilt -= Time.deltaTime;
             if (timeToTilt <= 0)
@@ -116,4 +114,3 @@ public class MoveWorker3 : MonoBehaviour
             warning.SetActive(false);
     }
 }
-

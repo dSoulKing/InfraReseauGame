@@ -22,8 +22,8 @@ public class Computer2 : MonoBehaviour {
 
             mainCamera = Camera.main;
 
-            mainCamera.orthographicSize = 9.3f;
-            mainCamera.transform.position = new Vector3(464.2f, 1.6f, 9);
+            mainCamera.orthographicSize = 10.2f;
+            mainCamera.transform.position = new Vector3(464.4f, 1.4f, 9);
             mainCamera.transform.Rotate(-90, 0, 0);
             
             Instantiate(allRepair, allRepair.transform.position, allRepair.transform.rotation);

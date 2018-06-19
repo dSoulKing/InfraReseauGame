@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
     public GameObject worker1;
     public GameObject worker2;
     public GameObject worker3;
+    public GameObject worker4;
     public GameObject helpBubble;
     public GameObject exclamationPoint1;
     public GameObject exclamationPoint2;
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour {
     public static bool boolSetUp1;
     public static bool boolSetUp2;
     public static bool boolSetUp3;
+    public static bool boolSetUp4;
 
     public static bool gamePause;
     public static int totalPoints;
@@ -93,6 +95,11 @@ public class GameController : MonoBehaviour {
             else if (numberWorker == 3)
             {
                 Instantiate(worker3, worker3.transform.position, Quaternion.identity);
+                timeNewWorker = 5f;
+            }
+            else if (numberWorker == 4)
+            {
+                Instantiate(worker4, worker4.transform.position, Quaternion.identity);
                 timeNewWorker = 5000f;
             }
         }

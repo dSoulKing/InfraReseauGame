@@ -103,7 +103,6 @@ public class MoveWorker2 : MonoBehaviour
             timeToTilt -= Time.deltaTime;
             if (timeToTilt <= 0)
             {
-                GameController.totalPoints--;
                 GameObject gameControllerObject = GameObject.Find("GameController");
                 GameController gameController = gameControllerObject.GetComponent<GameController>();
                 gameController.updateScore();

@@ -12,4 +12,9 @@ public class MenuStart : MonoBehaviour {
         SceneManager.LoadScene(sceneName);
         begin = true;
     }
+
+    public void exit()
+    {
+        Application.Quit();
+    }
 }
