@@ -28,7 +28,7 @@ public class MoveWorker4 : MonoBehaviour
         i = 0;
         timeToMove = 1f;
         timeToTilt = 0f;
-        spheres = new GameObject[20];
+        spheres = new GameObject[16];
         workerMove1.SetActive(false);
         workerMove1.transform.Rotate(0, 90, 0, Space.World);
         workerMove2.transform.Rotate(0, 90, 0, Space.World);
@@ -64,18 +64,18 @@ public class MoveWorker4 : MonoBehaviour
             }
             else if (i == 13)
             {
-                workerMove1.transform.Rotate(0, 90, 0, Space.World);
-                workerMove2.transform.Rotate(0, 90, 0, Space.World);
+                workerMove1.transform.Rotate(0, -90, 0, Space.World);
+                workerMove2.transform.Rotate(0, -90, 0, Space.World);
             }
             else if (i == 14)
             {
-                workerMove1.transform.Rotate(0, -90, 0, Space.World);
-                workerMove2.transform.Rotate(0, -90, 0, Space.World);
+                workerMove1.transform.Rotate(0, 90, 0, Space.World);
+                workerMove2.transform.Rotate(0, 90, 0, Space.World);
             }
             else if (i == 15)
             {
-                workerMove1.transform.Rotate(0, -90, 0, Space.World);
-                workerMove2.transform.Rotate(0, -90, 0, Space.World);
+                workerMove1.transform.Rotate(0, 90, 0, Space.World);
+                workerMove2.transform.Rotate(0, 90, 0, Space.World);
             }
 
 

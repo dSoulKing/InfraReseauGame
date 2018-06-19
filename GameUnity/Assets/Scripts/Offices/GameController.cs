@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     public GameObject exclamationPoint2;
     public GameObject clickToSetUp1;
     public GameObject clickToSetUp2;
+    public GameObject clickToSetUp4;
 
     public GameObject timerTextObject;
     public Text timerText;
@@ -101,6 +102,8 @@ public class GameController : MonoBehaviour {
             {
                 Instantiate(worker4, worker4.transform.position, Quaternion.identity);
                 timeNewWorker = 5000f;
+
+                Instantiate(clickToSetUp4, clickToSetUp4.transform.position, clickToSetUp4.transform.rotation);
             }
         }
 
