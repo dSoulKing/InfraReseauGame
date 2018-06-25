@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Computer3 : MonoBehaviour {
 
-    public GameObject allServer;
+    //public GameObject allServer;
 
     private Camera mainCamera;
 
@@ -22,7 +22,7 @@ public class Computer3 : MonoBehaviour {
         InputManager.inputON = true;
         GameController.gamePause = true;
 
-        allServer.SetActive(true);
+        //allServer.SetActive(true);
     }
 
     

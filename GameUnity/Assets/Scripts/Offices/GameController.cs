@@ -115,7 +115,7 @@ public class GameController : MonoBehaviour {
                 exclamationPoint1 = (GameObject) Instantiate(exclamationPoint1, positionExclamationPoint, exclamationPoint1.transform.rotation);
                 Instantiate(helpBubble, positionHelpBubble, helpBubble.transform.rotation);
 
-                timeNewHelp = 20f;
+                timeNewHelp = 30f;
                 positionExclamationPoint = new Vector3(22.5f, 2.22f, 10.5f);
                 positionHelpBubble = new Vector3(22.397f, 1, 12.773f);
 
