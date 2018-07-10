@@ -8,6 +8,8 @@ TagManager:
   - computerBackground
   - virus
   - target
+  - neg
+  - pos
   layers:
   - Default
   - TransparentFX

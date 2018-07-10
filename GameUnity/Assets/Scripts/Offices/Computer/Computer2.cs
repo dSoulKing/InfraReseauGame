@@ -11,14 +11,13 @@ public class Computer2 : MonoBehaviour {
 
     void OnMouseDown()
     {
-        GameObject gameControllerObject = GameObject.Find("GameController");
-        GameController gameController = gameControllerObject.GetComponent<GameController>();
+        //GameObject gameControllerObject = GameObject.Find("GameController");
+        //GameController gameController = gameControllerObject.GetComponent<GameController>();
 
         Debug.Log("PC2");
         if (GameController.boolComputer2 == true)
         {
-            Destroy(gameController.exclamationPoint1);
-            Roof5Clicked.eP2 = false;
+            //destroy(gamecontroller.exclamationpoint1);
 
             mainCamera = Camera.main;
 

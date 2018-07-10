@@ -17,12 +17,7 @@ public class RebackServer : MonoBehaviour {
         mainCamera.transform.Rotate(90, 0, 0);
 
         InputManager.inputON = false;
-
-        GameObject groundBackObject = GameObject.Find("GroundBack");
-        GroundBack groundBack = groundBackObject.GetComponent<GroundBack>();
-        groundBack.SetActiveAll();
-
-
+        
         GameController.gamePause = false;
 
         allServer.SetActive(false);

@@ -9,11 +9,10 @@ public class VirusManager : MonoBehaviour {
     public Transform parent;
     public SpriteRenderer backgroundComputer;
     public GameObject rebackButtonVirus;
-
     
     //public Text computerLifeText;
 
-    public static bool virusStart = false;
+    public bool virusStart = false;
     public static int computerLife;
     public static bool enter;
 

@@ -13,14 +13,13 @@ public class Computer1 : MonoBehaviour {
 
     void OnMouseDown()
     {
-        GameObject gameControllerObject = GameObject.Find("GameController");
-        GameController gameController = gameControllerObject.GetComponent<GameController>();
+        //GameObject gameControllerObject = GameObject.Find("GameController");
+        //GameController gameController = gameControllerObject.GetComponent<GameController>();
         
         Debug.Log("PC1");
         if (GameController.boolComputer1 == true)
         {
-            Destroy(gameController.exclamationPoint1);
-            Roof12Clicked.eP1 = false;
+            //Destroy(gameController.exclamationPoint1);
 
             mainCamera = Camera.main;
 
@@ -30,7 +29,7 @@ public class Computer1 : MonoBehaviour {
             
             Instantiate(allVirus, allVirus.transform.position, allVirus.transform.rotation);
 
-            VirusManager.virusStart = true;
+            //VirusManager.virusStart = true;
             GameController.gamePause = true;
         }
     }

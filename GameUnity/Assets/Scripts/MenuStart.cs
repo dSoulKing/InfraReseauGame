@@ -7,13 +7,13 @@ public class MenuStart : MonoBehaviour {
 
     public static bool begin;
 
-    public void changeMenuScene (string sceneName)
+    public void ChangeMenuScene (string sceneName)
     {
         SceneManager.LoadScene(sceneName);
         begin = true;
     }
 
-    public void exit()
+    public void Exit()
     {
         Application.Quit();
     }
