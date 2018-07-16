@@ -8,7 +8,6 @@ public class Travel {
     private int m_numTravel;
     private GameObject m_travelLoad;
     private int m_numChildren;
-    private GameObject m_travel;
 
     public Travel(int numWorker, int numTravel)
     {
@@ -32,6 +31,7 @@ public class Travel {
 
         //m_numChildren = m_travelLoad.transform.childCount;
     }
+
 
     public int NumTravel
     {
@@ -83,6 +83,12 @@ public class Travel {
         {
             m_numChildren = value;
         }
+    }
+
+    public override bool Equals(object obj)
+    {
+        Travel ni = obj as Travel;
+        return m_numTravel == ni.m_numTravel && m_numWorker == ni.m_numWorker;
     }
 
 }

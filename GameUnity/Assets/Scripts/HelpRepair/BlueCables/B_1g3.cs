@@ -66,7 +66,6 @@ public class B_1g3 : MonoBehaviour {
         transform.Rotate(0, 0, 90);
         angle = transform.localEulerAngles.z;
         angle = Math.Round(angle, 1);
-        Debug.Log("1G (2) : " + angle);
     }
 
 }

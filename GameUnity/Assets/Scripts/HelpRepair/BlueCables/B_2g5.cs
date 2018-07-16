@@ -77,6 +77,5 @@ public class B_2g5 : MonoBehaviour {
         transform.Rotate(0, 0, 90);
         angle = transform.localEulerAngles.z;
         angle = Math.Round(angle, 1);
-        Debug.Log("2G (4) : " + angle);
     }
 }

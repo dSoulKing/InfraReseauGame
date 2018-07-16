@@ -5,7 +5,7 @@ using UnityEngine;
 public class Worker {
 
     private int m_typeWorker;
-    private Travel m_travel;
+    private GameObject m_travel;
     private float m_timeToMove;
     private float m_timeToMoveUsed;
     private GameObject m_workerObject;
@@ -15,7 +15,7 @@ public class Worker {
     private int i;
     private int timeToPoint = -1;
 
-    public Worker(int typeWorker, Travel travel)
+    public Worker(int typeWorker, GameObject travel)
     {
         m_typeWorker = typeWorker;
         m_travel = travel;
@@ -79,7 +79,7 @@ public class Worker {
         }
     }
 
-    public Travel Travel
+    public GameObject Travel
     {
         get
         {
@@ -178,7 +178,7 @@ public class Worker {
 
     public void MoveWorker()
     {
-        if (i < m_travel.NumChildren)
+        if (i < m_travel.transform.childCount)
         {
             if (i % 2 == 0)
             {
@@ -191,16 +191,16 @@ public class Worker {
                 worker1.SetActive(false);
             }
 
-            if (m_travel.TravelLoad.transform.GetChild(i).name == "neg")
+            if (m_travel.transform.GetChild(i).name == "neg")
             {
                 m_workerObject.transform.Rotate(0, -90, 0, Space.World);
             }
-            else if (m_travel.TravelLoad.transform.GetChild(i).name == "pos")
+            else if (m_travel.transform.GetChild(i).name == "pos")
             {
                 m_workerObject.transform.Rotate(0, 90, 0, Space.World);
             }
             
-            if (m_travel.TravelLoad.transform.GetChild(i).name == "ClickToSetUp")
+            if (m_travel.transform.GetChild(i).name == "ClickToSetUp")
             {
                 timeToPoint = 5;
             }
@@ -227,10 +227,10 @@ public class Worker {
 
     public void MakeTab()
     {
-        m_workerObjectTab = new GameObject[m_travel.NumChildren];
-        for (int y = 0; y < (m_travel.NumChildren); y++)
+        m_workerObjectTab = new GameObject[m_travel.transform.childCount];
+        for (int y = 0; y < m_travel.transform.childCount; y++)
         {
-            m_workerObjectTab[y] = m_travel.TravelLoad.transform.GetChild(y).gameObject;
+            m_workerObjectTab[y] = m_travel.transform.GetChild(y).gameObject;
         }
     }
 }

@@ -8,8 +8,6 @@ public class ClickComputer : MonoBehaviour {
 
     void OnMouseDown()
     {
-        if (GameController.boolComputer1 == true)
-        {
             mainCamera = Camera.main;
 
             mainCamera.orthographicSize = 3.4f;
@@ -18,6 +16,5 @@ public class ClickComputer : MonoBehaviour {
 
             transform.parent.gameObject.GetComponent<VirusManager>().virusStart = true;
             GameController.gamePause = true;
-        }
     }
 }

@@ -55,7 +55,7 @@ public class RepairManager : MonoBehaviour {
     public static bool G_2g3;
     public static bool G_2g4;
 
-    public static bool repairStart = false;
+    public bool repairStart = false;
 
     public static String timerText;
 

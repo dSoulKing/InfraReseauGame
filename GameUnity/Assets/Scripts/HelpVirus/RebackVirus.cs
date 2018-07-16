@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RebackVirus : MonoBehaviour {
     
-    public GameObject allVirus;
-
     private Camera mainCamera;
 
     private void OnMouseDown()
@@ -19,6 +17,6 @@ public class RebackVirus : MonoBehaviour {
         GameController.gamePause = false;
         GameController.boolComputer1 = false;
 
-        Destroy(allVirus);
+        Destroy(transform.parent.gameObject);
     }
 }

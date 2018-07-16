@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,10 +22,20 @@ public class GameController : MonoBehaviour {
     
     private int random1;
     private int random2;
-    private List<Travel> travels;
-    private List<Worker> workers;
+    private ArrayList workers;
     private bool addOrNot;
+    private GameObject[] travelsNo;
+    private GameObject[] travelsNi;
+    private GameObject[] travelsF;
+    private GameObject allTravels;
+    private bool workerNoOK;
+    private bool workerNiOK;
+    private bool workerFOK;
+    private int nbNo;
+    private int nbNi;
+    private int nbF;
 
+    private GameObject newProblemLoad;
     private GameObject newProblem;
 
     private DateTime timeWorker = DateTime.Now;
@@ -32,12 +43,20 @@ public class GameController : MonoBehaviour {
     private DateTime timePoint = DateTime.Now;
     private DateTime timeProblem = DateTime.Now;
 
+    private int a, b;
     private int x;
+
+
 
     void Start()
     {
         boolComputer1 = false;
         boolComputer2 = false;
+
+        a = b = 0;
+        nbNo = 0;
+        nbNi = 0;
+        nbF = 0;
 
         x = 1;
 
@@ -49,32 +68,48 @@ public class GameController : MonoBehaviour {
         boolSetUp2 = true;
         boolSetUp3 = true;
 
-        travels = new List<Travel>();
-        Travel travelDefault1 = new Travel(1, 5);
-        Travel travelDefault2 = new Travel(3, 5);
-        travels.Add(travelDefault1);
-        travels.Add(travelDefault2);
+        allTravels = Resources.Load("AllTravels", typeof(GameObject)) as GameObject;
+        allTravels = Instantiate(allTravels, allTravels.transform.position, allTravels.transform.rotation);
 
-        workers = new List<Worker>();
+        travelsNo = new GameObject[4];
+        travelsNi = new GameObject[5];
+        travelsF = new GameObject[4];
+        for (int y = 0; y < 13; y++)
+        {
+            if (y < 4)
+                travelsF[y] = allTravels.transform.GetChild(y).gameObject;
+            if (y >= 4 && y < 9)
+            {
+                travelsNi[a] = allTravels.transform.GetChild(y).gameObject;
+                a++;
+            }
+            if (y >= 9)
+            {
+                travelsNo[b] = allTravels.transform.GetChild(y).gameObject;
+                b++;
+            }
+        }
+
+        workers = new ArrayList();
     }
 
     void Update()
     {
         if (MenuStart.begin && !gamePause)
         {
-            if ((DateTime.Now - timeWorker).TotalMilliseconds >= 14000 && travels.Count < 15)
+            if ((DateTime.Now - timeWorker).TotalMilliseconds >= 14000)
             {
                 StartCoroutine(NewWorker());
                 timeWorker = DateTime.Now;
             }
 
-            if ((DateTime.Now - timeMove).TotalMilliseconds >= 400 && travels.Count > 2)
+            if ((DateTime.Now - timeMove).TotalMilliseconds >= 400)
             {
                 StartCoroutine(WorkerMovement());
                 timeMove = DateTime.Now;
             }
 
-            if ((DateTime.Now - timePoint).TotalMilliseconds >= 1000 && travels.Count > 2)
+            if ((DateTime.Now - timePoint).TotalMilliseconds >= 1000)
             {
                 StartCoroutine(MalusTime());
                 timePoint = DateTime.Now;
@@ -89,33 +124,70 @@ public class GameController : MonoBehaviour {
 
     private IEnumerator NewWorker()
     {
+        workerNoOK = false;
+        workerNiOK = false;
+        workerFOK = false;
+        int random;
         do
         {
-            random1 = UnityEngine.Random.Range(1, 4);
-            random2 = UnityEngine.Random.Range(1, 6);
-            foreach (Travel travel in travels)
+            random = UnityEngine.Random.Range(1, 4);
+            switch (random)
             {
-                if (travel.NumWorker == random1 && travel.NumTravel == random2)
-                {
-                    addOrNot = false;
-                }
-                else
-                    addOrNot = true;
+                case 1:
+                    if (nbNo < 4)
+                    {
+                        workerNoOK = true;
+                        nbNo++;
+                    }
+                    break;
+                case 2:
+                    if (nbNi < 5)
+                    {
+                        workerNiOK = true;
+                        nbNi++;
+                    }
+                    break;
+                case 3:
+                    if (nbF < 4)
+                    {
+                        workerFOK = true;
+                        nbF++;
+                    }
+                    break;
             }
-        } while (!addOrNot);
-        Travel travelOk = new Travel(random1, random2);
-        Worker workerOk = new Worker(random1, travelOk);
-        travels.Add(travelOk);
-        workers.Add(workerOk);
+        } while (!workerNoOK && !workerNiOK && !workerFOK);
 
-        travelOk.TravelLoad = Instantiate(travelOk.TravelLoad, travelOk.TravelLoad.transform.position, travelOk.TravelLoad.transform.rotation);
-        travelOk.NumChildren = travelOk.TravelLoad.transform.childCount;
-        workerOk.WorkerObject = Instantiate(workerOk.WorkerObject, workerOk.WorkerObject.transform.position, workerOk.WorkerObject.transform.rotation);
-
-        workerOk.Worker1 = workerOk.WorkerObject.transform.GetChild(0).gameObject;
-        workerOk.Worker2 = workerOk.WorkerObject.transform.GetChild(1).gameObject;
-
-        workerOk.MakeTab();
+        if (workerNoOK)
+        {
+            Worker workerOk = new Worker(random, travelsNo[nbNo - 1]);
+            workerOk.WorkerObject = Instantiate(workerOk.WorkerObject, workerOk.WorkerObject.transform.position, workerOk.WorkerObject.transform.rotation);
+            workers.Add(workerOk);
+            travelsNo[nbNo - 1].SetActive(true);
+            workerOk.MakeTab();
+            workerOk.Worker1 = workerOk.WorkerObject.transform.GetChild(0).gameObject;
+            workerOk.Worker2 = workerOk.WorkerObject.transform.GetChild(1).gameObject;
+        }
+        else if (workerNiOK)
+        {
+            Worker workerOk = new Worker(random, travelsNi[nbNi - 1]);
+            workerOk.WorkerObject = Instantiate(workerOk.WorkerObject, workerOk.WorkerObject.transform.position, workerOk.WorkerObject.transform.rotation);
+            workers.Add(workerOk);
+            travelsNi[nbNi - 1].SetActive(true);
+            workerOk.MakeTab();
+            workerOk.Worker1 = workerOk.WorkerObject.transform.GetChild(0).gameObject;
+            workerOk.Worker2 = workerOk.WorkerObject.transform.GetChild(1).gameObject;
+        }
+        else if (workerFOK)
+        {
+            Worker workerOk = new Worker(random, travelsF[nbF - 1]);
+            travelsF[nbF - 1].SetActive(true);
+            workerOk.WorkerObject = Instantiate(workerOk.WorkerObject, workerOk.WorkerObject.transform.position, workerOk.WorkerObject.transform.rotation);
+            workers.Add(workerOk);
+            travelsF[nbF - 1].SetActive(true);
+            workerOk.MakeTab();
+            workerOk.Worker1 = workerOk.WorkerObject.transform.GetChild(0).gameObject;
+            workerOk.Worker2 = workerOk.WorkerObject.transform.GetChild(1).gameObject;
+        } 
 
         yield return null;
     }
@@ -141,7 +213,6 @@ public class GameController : MonoBehaviour {
             worker.TimeToPoint -= 1;
             if (worker.TimeToPoint == 0)
             {
-                Debug.Log("enter in if");
                 worker.TimeToPoint = 5;
                 UpdateScore();
             }
@@ -152,17 +223,14 @@ public class GameController : MonoBehaviour {
 
     private IEnumerator NewProblem()
     {
-        if (x < 6)
-        {
-                newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
-                newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
-        }
-            
-        else if (x == 6)
+        newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
+        newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
+        
+        if (x == 6)
         {
             //BOSS is comming !
         }
-        
+        x++;
         yield return null;
     }
 

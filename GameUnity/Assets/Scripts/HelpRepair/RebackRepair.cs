@@ -18,7 +18,7 @@ public class RebackRepair : MonoBehaviour {
 
         GameController.gamePause = false;
         GameController.boolComputer2 = false;
-        RepairManager.repairStart = false;
+        //RepairManager.repairStart = false;
 
         Destroy(allRepair);
     }

@@ -28,7 +28,7 @@ public class Computer2 : MonoBehaviour {
             Instantiate(allRepair, allRepair.transform.position, allRepair.transform.rotation);
 
             GameController.gamePause = true;
-            RepairManager.repairStart = true;
+            //RepairManager.repairStart = true;
         }
     }
 }

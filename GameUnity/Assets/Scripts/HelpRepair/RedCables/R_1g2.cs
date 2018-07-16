@@ -78,6 +78,5 @@ public class R_1g2 : MonoBehaviour
         transform.Rotate(0, 0, 90);
         angle = transform.localEulerAngles.z;
         angle = Math.Round(angle, 1);
-        Debug.Log(angle);
     }
 }
