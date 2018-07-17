@@ -13,7 +13,7 @@ public class RebackRepair : MonoBehaviour {
         mainCamera = Camera.main;
 
         mainCamera.orthographicSize = 9.1f;
-        mainCamera.transform.position = new Vector3(12, 2.9f, 9);
+        mainCamera.transform.position = new Vector3(12, 29f, 9);
         mainCamera.transform.Rotate(90, 0, 0);
 
         GameController.gamePause = false;

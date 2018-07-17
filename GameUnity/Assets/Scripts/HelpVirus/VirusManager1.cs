@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VirusManager : MonoBehaviour {
+public class VirusManager1 : MonoBehaviour {
 
     public GameObject virus;
     public Transform parent;
@@ -13,7 +13,7 @@ public class VirusManager : MonoBehaviour {
     //public Text computerLifeText;
 
     public bool virusStart = false;
-    public static int computerLife;
+    public static int computerLife1;
     public static bool enter;
 
     private Vector3 spawnVirus;
@@ -25,7 +25,7 @@ public class VirusManager : MonoBehaviour {
     
 	void Start () {
         timeNewVirus = 5f;
-        computerLife = 5;
+        computerLife1 = 5;
         enter = false;
         nbVirus = 0;
         //virus = GameObject.FindWithTag("virus");
@@ -45,7 +45,7 @@ public class VirusManager : MonoBehaviour {
             timeNewVirus -= Time.deltaTime;
         }
 
-        if (computerLife == 0)
+        if (computerLife1 == 0)
         {
             //computerLifeText.text = "L'ordinateur est complêtement envahi !";
             timeNewVirus = 5000f;

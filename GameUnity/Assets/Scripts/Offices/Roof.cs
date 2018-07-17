@@ -16,14 +16,14 @@ public  class Roof : MonoBehaviour {
         mainCamera = Camera.main;
         boolRoof = true;
         camSize = 9.1f;
-        camPos = new Vector3(12, 2.9f, 9);
+        camPos = new Vector3(12, 29, 9);
 	}
 
     public void ClickOnRoof (GameObject roof, float sizeCam)
     {
         if (boolRoof)
         {
-            mainCamera.transform.position = new Vector3(roof.transform.position.x, mainCamera.transform.position.y, roof.transform.position.z);
+            mainCamera.transform.position = new Vector3(roof.transform.position.x, roof.transform.position.y + 0.5f, roof.transform.position.z);
             roof.SetActive(false);
             boolRoof = false;
             selectedRoof = roof;

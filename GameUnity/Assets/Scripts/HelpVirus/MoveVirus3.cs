@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveVirus : MonoBehaviour
-{
+public class MoveVirus3 : MonoBehaviour {
+
     public Sprite fireBall;
     public Sprite explosion;
-    public Sprite greenExplosion;
     public Transform target;
     public float speed;
 
@@ -19,7 +18,7 @@ public class MoveVirus : MonoBehaviour
     private void Start()
     {
 
-        this.thisVirus = gameObject;
+        thisVirus = gameObject;
         stop = true;
         virusRenderer = thisVirus.GetComponent<SpriteRenderer>();
     }
@@ -40,10 +39,9 @@ public class MoveVirus : MonoBehaviour
 
         if (transform.position == target.position)
         {
-            virusRenderer.sprite = greenExplosion;
             Destroy(thisVirus);
-            VirusManager.computerLife--;
-            VirusManager.enter = false;
+            VirusManager3.computerLife3--;
+            VirusManager3.enter = false;
         }
 
     }
@@ -61,7 +59,7 @@ public class MoveVirus : MonoBehaviour
         if (other.gameObject == GameObject.Find("CircleCenter"))
         {
             Debug.Log("virus enter");
-            VirusManager.enter = true;
+            VirusManager3.enter = true;
             transform.localScale = new Vector3(0.016f, 0.016f, 0.016f);
             virusRenderer.sprite = fireBall;
             speed = speed * 2.5f;
