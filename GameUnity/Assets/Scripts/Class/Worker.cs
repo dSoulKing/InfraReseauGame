@@ -14,6 +14,7 @@ public class Worker {
     private GameObject worker2;
     private int i;
     private int timeToPoint = -1;
+    private bool yPlus = true;
 
     public Worker(int typeWorker, GameObject travel)
     {
@@ -219,7 +220,15 @@ public class Worker {
 
         }
         else if (m_travel.transform.GetChild(m_travel.transform.childCount - 1).name != "ClickToSetUp")
+        {
             timeToPoint = -1;
+            if (yPlus)
+            {
+                GameController.w++;
+                yPlus = false;
+                Debug.Log(GameController.w);
+            }
+        }
 
         //else if (i == m_travel.NumChildren - 1)
         //{

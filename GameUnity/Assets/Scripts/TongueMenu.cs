@@ -27,7 +27,5 @@ public class TongueMenu : MonoBehaviour, IPointerDownHandler {
             flou.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
         else
             flou.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        
-        GameController.PlayPauseTime();
     }
 }

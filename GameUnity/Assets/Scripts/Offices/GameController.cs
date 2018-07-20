@@ -7,14 +7,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-    
-    //public static bool boolComputer1;
-    //public static bool boolComputer2;
+
+    [SerializeField]
+    Roof roof;
 
     public static bool gamePause;
     public static int totalPoints;
     public Text pointText;
-    
+    public GameObject gameOver;
+    public GameObject gameWin;
+
     private int random1;
     private int random2;
     private ArrayList workers;
@@ -40,6 +42,7 @@ public class GameController : MonoBehaviour {
 
     private int a, b;
     private int x;
+    public static int w;
 
     void Start()
     {
@@ -51,7 +54,8 @@ public class GameController : MonoBehaviour {
         nbNi = 0;
         nbF = 0;
 
-        x = 1;
+        x = 0;
+        w = 0;
 
         gamePause = false;
         totalPoints = 100;
@@ -115,6 +119,9 @@ public class GameController : MonoBehaviour {
                 timeProblem = 30;
             }
         }
+
+        if (x == 6 && w == 13)
+            EndGame();
     }
 
     private IEnumerator NewWorker()
@@ -220,39 +227,33 @@ public class GameController : MonoBehaviour {
     {
         if (x < 6)
         {
+            x++;
             newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
             newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
+            Debug.Log(x);
         }
-        else if (x == 6)
-        {
-            //BOSS is comming !
-        }
-        x++;
+
         yield return null;
     }
 
     public void UpdateScore(int losePoint)
     {
         totalPoints = totalPoints - losePoint;
-        pointText.text = "Point :\n" + totalPoints + "/100";
+        if (totalPoints < 0)
+            totalPoints = 0;
+        pointText.text = "Points :\n" + totalPoints + "/100";
+
+        if (totalPoints == 0)
+            EndGame();
     }
 
-    public static void PlayPauseTime()
+    private void EndGame()
     {
-        //if (gamePause)
-        //{
-        //    timePause = DateTime.Now;
-        //    Debug.Log(timePause);
-        //}
-        //else
-        //{
-        //    timePause = new DateTime((DateTime.Now - timePause).Ticks);
-        //    Debug.Log(timePause);
-
-        //    timeWorker.AddMilliseconds(timePause.Millisecond);
-        //    timeMove.AddMilliseconds(timePause.Millisecond);
-        //    timePoint.AddMilliseconds(timePause.Millisecond);
-        //    timeProblem.AddMilliseconds(timePause.Millisecond);
-        //}
+        roof.GroundClicked();
+        gameWin.transform.GetChild(1).GetComponent<TextMesh>().text = "with " + totalPoints + " points";
+        if (totalPoints == 0)
+            gameOver.SetActive(true);
+        else
+            gameWin.SetActive(true);
     }
 }

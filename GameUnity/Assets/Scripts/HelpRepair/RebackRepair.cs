@@ -31,8 +31,6 @@ public class RebackRepair : MonoBehaviour {
 
         GameController.gamePause = false;
 
-        GameController.PlayPauseTime();
-
         roof.GroundClicked();
 
         if (RepairManager.losePointOK)

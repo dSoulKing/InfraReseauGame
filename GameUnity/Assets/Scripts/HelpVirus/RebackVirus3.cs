@@ -28,8 +28,6 @@ public class RebackVirus3 : MonoBehaviour {
 
         GameController.gamePause = false;
 
-        GameController.PlayPauseTime();
-
         roof.GroundClicked();
 
         if (VirusManager3.losePointOk)

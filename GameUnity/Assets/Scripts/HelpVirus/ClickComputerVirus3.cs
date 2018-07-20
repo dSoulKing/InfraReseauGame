@@ -17,7 +17,5 @@ public class ClickComputerVirus3 : MonoBehaviour {
 
         transform.parent.gameObject.GetComponent<VirusManager3>().virusStart = true;
         GameController.gamePause = true;
-
-        GameController.PlayPauseTime();
     }
 }

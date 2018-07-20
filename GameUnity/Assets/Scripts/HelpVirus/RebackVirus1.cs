@@ -32,8 +32,6 @@ public class RebackVirus1 : MonoBehaviour {
 
         GameController.gamePause = false;
 
-        GameController.PlayPauseTime();
-
         roof.GroundClicked();
 
         Destroy(transform.parent.gameObject);
