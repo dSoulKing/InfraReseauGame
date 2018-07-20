@@ -20,7 +20,6 @@ public class TongueMenu : MonoBehaviour, IPointerDownHandler {
     public void OnPointerDown(PointerEventData eventData)
     {
         isOpen = !isOpen;
-        Debug.Log(isOpen);
         animator.SetBool("isOpen", isOpen);
         GameController.gamePause = !GameController.gamePause;
 
@@ -28,5 +27,7 @@ public class TongueMenu : MonoBehaviour, IPointerDownHandler {
             flou.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
         else
             flou.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        
+        GameController.PlayPauseTime();
     }
 }

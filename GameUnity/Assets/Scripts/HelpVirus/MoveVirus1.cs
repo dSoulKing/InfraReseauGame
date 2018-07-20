@@ -58,7 +58,6 @@ public class MoveVirus1 : MonoBehaviour
     {
         if (other.gameObject == GameObject.Find("CircleCenter"))
         {
-            Debug.Log("virus enter");
             VirusManager1.enter = true;
             transform.localScale = new Vector3(0.016f, 0.016f, 0.016f);
             virusRenderer.sprite = fireBall;

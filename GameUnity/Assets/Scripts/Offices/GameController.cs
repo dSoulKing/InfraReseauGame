@@ -38,15 +38,20 @@ public class GameController : MonoBehaviour {
     private GameObject newProblemLoad;
     private GameObject newProblem;
 
-    private DateTime timeWorker = DateTime.Now;
-    private DateTime timeMove = DateTime.Now;
-    private DateTime timePoint = DateTime.Now;
-    private DateTime timeProblem = DateTime.Now;
+    //public static DateTime timeWorker = DateTime.Now;
+    //public static DateTime timeMove = DateTime.Now;
+    //public static DateTime timePoint = DateTime.Now;
+    //public static DateTime timeProblem = DateTime.Now;
+    //public static DateTime timePause;
+
+    public static float timeWorker = 14;
+    public static float timeMove = 0.4f;
+    public static float timePoint = 1;
+    public static float timeProblem = 30;
+    //public static DateTime timePause;
 
     private int a, b;
     private int x;
-
-
 
     void Start()
     {
@@ -97,28 +102,57 @@ public class GameController : MonoBehaviour {
     {
         if (MenuStart.begin && !gamePause)
         {
-            if ((DateTime.Now - timeWorker).TotalMilliseconds >= 14000)
+            timeWorker -= Time.deltaTime;
+            timeMove -= Time.deltaTime;
+            timePoint -= Time.deltaTime;
+            timeProblem -= Time.deltaTime;
+
+            if (timeWorker <= 0 && workers.Count < 13)
             {
                 StartCoroutine(NewWorker());
-                timeWorker = DateTime.Now;
+                timeWorker = 14;
             }
 
-            if ((DateTime.Now - timeMove).TotalMilliseconds >= 400)
+            if (timeMove <= 0)
             {
                 StartCoroutine(WorkerMovement());
-                timeMove = DateTime.Now;
+                timeMove = 0.4f;
             }
 
-            if ((DateTime.Now - timePoint).TotalMilliseconds >= 1000)
+            if (timePoint <= 0)
             {
                 StartCoroutine(MalusTime());
-                timePoint = DateTime.Now;
+                timePoint = 1;
             }
-            if ((DateTime.Now - timeProblem).TotalMilliseconds >= 30000)
+
+            if (timeProblem <= 0)
             {
                 StartCoroutine(NewProblem());
-                timeProblem = DateTime.Now;
+                timeProblem = 30;
             }
+
+            //if ((DateTime.Now - timeWorker).TotalMilliseconds >= 14000 && workers.Count < 13)
+            //{
+            //    StartCoroutine(NewWorker());
+            //    timeWorker = DateTime.Now;
+            //}
+
+            //if ((DateTime.Now - timeMove).TotalMilliseconds >= 400)
+            //{
+            //    StartCoroutine(WorkerMovement());
+            //    timeMove = DateTime.Now;
+            //}
+
+            //if ((DateTime.Now - timePoint).TotalMilliseconds >= 1000)
+            //{
+            //    StartCoroutine(MalusTime());
+            //    timePoint = DateTime.Now;
+            //}
+            //if ((DateTime.Now - timeProblem).TotalMilliseconds >= 30000 && x < 6)
+            //{
+            //    StartCoroutine(NewProblem());
+            //    timeProblem = DateTime.Now;
+            //}
         }
     }
 
@@ -223,10 +257,12 @@ public class GameController : MonoBehaviour {
 
     private IEnumerator NewProblem()
     {
-        newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
-        newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
-        
-        if (x == 6)
+        if (x < 6)
+        {
+            newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
+            newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
+        }
+        else if (x == 6)
         {
             //BOSS is comming !
         }
@@ -238,5 +274,24 @@ public class GameController : MonoBehaviour {
     {
         totalPoints--;
         pointText.text = "Point :\n" + totalPoints + "/100";
+    }
+
+    public static void PlayPauseTime()
+    {
+        //if (gamePause)
+        //{
+        //    timePause = DateTime.Now;
+        //    Debug.Log(timePause);
+        //}
+        //else
+        //{
+        //    timePause = new DateTime((DateTime.Now - timePause).Ticks);
+        //    Debug.Log(timePause);
+
+        //    timeWorker.AddMilliseconds(timePause.Millisecond);
+        //    timeMove.AddMilliseconds(timePause.Millisecond);
+        //    timePoint.AddMilliseconds(timePause.Millisecond);
+        //    timeProblem.AddMilliseconds(timePause.Millisecond);
+        //}
     }
 }

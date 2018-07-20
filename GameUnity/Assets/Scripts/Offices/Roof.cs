@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public  class Roof : MonoBehaviour {
+public class Roof : MonoBehaviour {
 
     Camera mainCamera;
 
@@ -21,6 +22,10 @@ public  class Roof : MonoBehaviour {
 
     public void ClickOnRoof (GameObject roof, float sizeCam)
     {
+        if (roof.transform.childCount > 0)
+        {
+            roof.transform.CenterOnChildred();
+        }
         if (boolRoof)
         {
             mainCamera.transform.position = new Vector3(roof.transform.position.x, roof.transform.position.y + 0.5f, roof.transform.position.z);
@@ -42,4 +47,5 @@ public  class Roof : MonoBehaviour {
             boolRoof = true;
         }
     }
+
 }

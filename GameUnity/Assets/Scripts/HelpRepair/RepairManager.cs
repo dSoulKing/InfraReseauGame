@@ -14,6 +14,8 @@ public class RepairManager : MonoBehaviour {
     public GameObject electricPowerYellow;
     public GameObject electricPowerGreen;
 
+    public GameObject objectChronoText;
+
     public static bool B_1g1;
     public static bool B_1g2;
     public static bool B_1g3;
@@ -57,7 +59,7 @@ public class RepairManager : MonoBehaviour {
 
     public bool repairStart = false;
 
-    public static String timerText;
+    
 
     private GameObject[] electricPowerBTab;
     private GameObject[] electricPowerRTab;
@@ -71,9 +73,10 @@ public class RepairManager : MonoBehaviour {
     private int y;
     private int w;
     private int z;
-    private double timer;
     private bool repairOK;
-
+    private double timer;
+    private string timerString;
+    private TextMesh timerText;
 
     private void Start()
     {
@@ -158,6 +161,9 @@ public class RepairManager : MonoBehaviour {
 
         timer = 60;
         repairOK = false;
+        
+        timerText = objectChronoText.GetComponent<TextMesh>();
+
     }
 
     private void Update()
@@ -165,8 +171,10 @@ public class RepairManager : MonoBehaviour {
         if (repairStart && timer >= 0 && !repairOK)
         {
             timer -= Time.deltaTime;
-            timerText = timer.ToString("F1");
+            timerString = timer.ToString("F1");
+            timerText.text = timerString;
         }
+
         if (B_7g1 && R_1g1 && Y_4g1 && G_1g1)
         {
             repairOK = true;

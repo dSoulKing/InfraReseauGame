@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClickComputerRepair1 : MonoBehaviour {
-
+    
     private Camera mainCamera;
 
     void OnMouseDown()
@@ -16,5 +18,7 @@ public class ClickComputerRepair1 : MonoBehaviour {
 
         transform.parent.gameObject.GetComponent<RepairManager>().repairStart = true;
         GameController.gamePause = true;
+
+        GameController.PlayPauseTime();
     }
 }

@@ -330,6 +330,10 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 125
       objectReference: {fileID: 0}
+    - target: {fileID: 1749176426068320, guid: 385f290533cd64e4f9940f245aa15a9d, type: 2}
+      propertyPath: m_Name
+      value: TextChrono1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 385f290533cd64e4f9940f245aa15a9d, type: 2}
   m_IsPrefabParent: 0
@@ -2475,7 +2479,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1086501364603718, guid: 20752ff0de1d3a1459af83d9625da899, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 65737867462298936, guid: 20752ff0de1d3a1459af83d9625da899,
         type: 2}
@@ -2486,6 +2490,21 @@ Prefab:
         type: 2}
       propertyPath: m_Size.y
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114340900631352364, guid: 20752ff0de1d3a1459af83d9625da899,
+        type: 2}
+      propertyPath: sizeCam
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114612774763471954, guid: 20752ff0de1d3a1459af83d9625da899,
+        type: 2}
+      propertyPath: sizeCam
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114745826606821918, guid: 20752ff0de1d3a1459af83d9625da899,
+        type: 2}
+      propertyPath: sizeCam
+      value: 3.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20752ff0de1d3a1459af83d9625da899, type: 2}

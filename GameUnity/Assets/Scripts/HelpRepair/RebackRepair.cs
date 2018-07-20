@@ -1,12 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RebackRepair : MonoBehaviour {
 
+    Roof roof;
+    GameObject roofObject;
+
     public GameObject allRepair;
 
     private Camera mainCamera;
+
+    private void Start()
+    {
+        roofObject = GameObject.Find("Roofs");
+        roof = roofObject.GetComponent<Roof>();
+    }
 
     public void OnMouseDown()
     {
@@ -21,5 +31,9 @@ public class RebackRepair : MonoBehaviour {
         //RepairManager.repairStart = false;
 
         Destroy(allRepair);
+        
+        GameController.PlayPauseTime();
+
+        roof.GroundClicked();
     }
 }

@@ -1,10 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RebackVirus : MonoBehaviour {
     
+    Roof roof;
+    GameObject roofObject;
+
     private Camera mainCamera;
+
+    private void Start()
+    {
+        roofObject = GameObject.Find("Roofs");
+        roof = roofObject.GetComponent<Roof>();
+    }
 
     private void OnMouseDown()
     {
@@ -18,5 +28,9 @@ public class RebackVirus : MonoBehaviour {
         GameController.boolComputer1 = false;
 
         Destroy(transform.parent.gameObject);
+
+        GameController.PlayPauseTime();
+
+        roof.GroundClicked();
     }
 }
