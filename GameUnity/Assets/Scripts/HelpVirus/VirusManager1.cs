@@ -9,8 +9,7 @@ public class VirusManager1 : MonoBehaviour {
     public Transform parent;
     public SpriteRenderer backgroundComputer;
     public GameObject rebackButtonVirus;
-    
-    //public Text computerLifeText;
+    public GameObject loseText;
 
     public bool virusStart = false;
     public static int computerLife1;
@@ -21,15 +20,13 @@ public class VirusManager1 : MonoBehaviour {
     private bool active = true;
     private int nbVirus;
     private int random;
-    private bool losePointOk = true;
-    
-	void Start () {
+    public static bool losePointOk = false;
+
+    void Start () {
         timeNewVirus = 5f;
         computerLife1 = 5;
         enter = false;
         nbVirus = 0;
-        //virus = GameObject.FindWithTag("virus");
-        //computerLifeText.text = "Vies restantes : 5";
 
         virus.SetActive(true);
     }
@@ -47,7 +44,6 @@ public class VirusManager1 : MonoBehaviour {
 
         if (computerLife1 == 0)
         {
-            //computerLifeText.text = "L'ordinateur est complêtement envahi !";
             timeNewVirus = 5000f;
             GameObject[] virus = GameObject.FindGameObjectsWithTag("virus");
             for (int i = 0; i < virus.Length; i++)
@@ -55,8 +51,9 @@ public class VirusManager1 : MonoBehaviour {
                 Destroy(virus[i]);
             }
             rebackButtonVirus.SetActive(true);
-            LosePoints();
+            losePointOk = true;
             active = false;
+            loseText.SetActive(true);
         }
         /*else
             computerLifeText.text = "Vies restantes : " + computerLife;*/
@@ -140,14 +137,5 @@ public class VirusManager1 : MonoBehaviour {
 
         if (nbVirus == 30)
             rebackButtonVirus.SetActive(true);
-    }
-
-    private void LosePoints()
-    {
-        if (losePointOk)
-        {
-            GameController.totalPoints -= 10;
-            losePointOk = false;
-        }
     }
 }

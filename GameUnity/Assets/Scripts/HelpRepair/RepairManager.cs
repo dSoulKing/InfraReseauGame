@@ -15,6 +15,7 @@ public class RepairManager : MonoBehaviour {
     public GameObject electricPowerGreen;
 
     public GameObject objectChronoText;
+    public GameObject loseText;
 
     public static bool B_1g1;
     public static bool B_1g2;
@@ -77,6 +78,8 @@ public class RepairManager : MonoBehaviour {
     private double timer;
     private string timerString;
     private TextMesh timerText;
+
+    public static bool losePointOK = false;
 
     private void Start()
     {
@@ -229,11 +232,18 @@ public class RepairManager : MonoBehaviour {
             rebackButtonRepair.SetActive(true);
             computerCore.SetActive(true);
         }
+
         if (timer <= 0)
         {
-            GameController.totalPoints -= 10;
-            RebackRepair rebackRepair = rebackButtonRepair.GetComponent<RebackRepair>();
-            rebackRepair.OnMouseDown();
+            losePointOK = true;
+            rebackButtonRepair.SetActive(true);
+            loseText.SetActive(true);
+            for (int i = 3; i < 19; i++)
+            {
+                gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            //RebackRepair rebackRepair = rebackButtonRepair.GetComponent<RebackRepair>();
+            //rebackRepair.OnMouseDown();
         }
     }
 }

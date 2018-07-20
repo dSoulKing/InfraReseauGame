@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RebackRepair : MonoBehaviour {
+public class RebackVirus3 : MonoBehaviour {
 
     Roof roof;
     GameObject roofObject;
-
-    public GameObject allRepair;
 
     private Camera mainCamera;
     private GameController gameController;
@@ -21,7 +18,7 @@ public class RebackRepair : MonoBehaviour {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
         mainCamera = Camera.main;
 
@@ -35,12 +32,9 @@ public class RebackRepair : MonoBehaviour {
 
         roof.GroundClicked();
 
-        if (RepairManager.losePointOK)
-        {
+        if (VirusManager3.losePointOk)
             gameController.UpdateScore(10);
-            RepairManager.losePointOK = false;
-        }
 
-        Destroy(allRepair);
+        Destroy(transform.parent.gameObject);
     }
 }

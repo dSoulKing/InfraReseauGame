@@ -36,7 +36,6 @@ public class ClickToSetUp4 : MonoBehaviour {
         if (i == 9)
         {
             Destroy(thisSetUp, 2f);
-            GameController.boolSetUp4 = false;
         }
     }
 }

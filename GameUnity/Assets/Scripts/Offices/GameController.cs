@@ -8,13 +8,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
     
-    public static bool boolComputer1;
-    public static bool boolComputer2;
-
-    public static bool boolSetUp1;
-    public static bool boolSetUp2;
-    public static bool boolSetUp3;
-    public static bool boolSetUp4;
+    //public static bool boolComputer1;
+    //public static bool boolComputer2;
 
     public static bool gamePause;
     public static int totalPoints;
@@ -38,25 +33,18 @@ public class GameController : MonoBehaviour {
     private GameObject newProblemLoad;
     private GameObject newProblem;
 
-    //public static DateTime timeWorker = DateTime.Now;
-    //public static DateTime timeMove = DateTime.Now;
-    //public static DateTime timePoint = DateTime.Now;
-    //public static DateTime timeProblem = DateTime.Now;
-    //public static DateTime timePause;
-
     public static float timeWorker = 14;
     public static float timeMove = 0.4f;
     public static float timePoint = 1;
     public static float timeProblem = 30;
-    //public static DateTime timePause;
 
     private int a, b;
     private int x;
 
     void Start()
     {
-        boolComputer1 = false;
-        boolComputer2 = false;
+        //boolComputer1 = false;
+        //boolComputer2 = false;
 
         a = b = 0;
         nbNo = 0;
@@ -68,10 +56,6 @@ public class GameController : MonoBehaviour {
         gamePause = false;
         totalPoints = 100;
         pointText.text = "Point :\n" + totalPoints + "/100";
-
-        boolSetUp1 = true;
-        boolSetUp2 = true;
-        boolSetUp3 = true;
 
         allTravels = Resources.Load("AllTravels", typeof(GameObject)) as GameObject;
         allTravels = Instantiate(allTravels, allTravels.transform.position, allTravels.transform.rotation);
@@ -130,29 +114,6 @@ public class GameController : MonoBehaviour {
                 StartCoroutine(NewProblem());
                 timeProblem = 30;
             }
-
-            //if ((DateTime.Now - timeWorker).TotalMilliseconds >= 14000 && workers.Count < 13)
-            //{
-            //    StartCoroutine(NewWorker());
-            //    timeWorker = DateTime.Now;
-            //}
-
-            //if ((DateTime.Now - timeMove).TotalMilliseconds >= 400)
-            //{
-            //    StartCoroutine(WorkerMovement());
-            //    timeMove = DateTime.Now;
-            //}
-
-            //if ((DateTime.Now - timePoint).TotalMilliseconds >= 1000)
-            //{
-            //    StartCoroutine(MalusTime());
-            //    timePoint = DateTime.Now;
-            //}
-            //if ((DateTime.Now - timeProblem).TotalMilliseconds >= 30000 && x < 6)
-            //{
-            //    StartCoroutine(NewProblem());
-            //    timeProblem = DateTime.Now;
-            //}
         }
     }
 
@@ -248,7 +209,7 @@ public class GameController : MonoBehaviour {
             if (worker.TimeToPoint == 0)
             {
                 worker.TimeToPoint = 5;
-                UpdateScore();
+                UpdateScore(1);
             }
         }
 
@@ -270,9 +231,9 @@ public class GameController : MonoBehaviour {
         yield return null;
     }
 
-    public void UpdateScore()
+    public void UpdateScore(int losePoint)
     {
-        totalPoints--;
+        totalPoints = totalPoints - losePoint;
         pointText.text = "Point :\n" + totalPoints + "/100";
     }
 

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBall: {fileID: 21300000, guid: 98a906cf4011a984aa067f4c4cffb94b, type: 3}
   explosion: {fileID: 21300000, guid: 2b5cf6e9faa1dcc479dab4d75c487199, type: 3}
-  target: {fileID: 4889966774321680, guid: aa6054e9aca54de4a959d12e965e0d7c, type: 2}
+  target: {fileID: 4498063530822080, guid: aa6054e9aca54de4a959d12e965e0d7c, type: 2}
   speed: 0.5
 --- !u!212 &212211652248535660
 SpriteRenderer:

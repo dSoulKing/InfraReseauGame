@@ -218,6 +218,9 @@ public class Worker {
             //}
 
         }
+        else if (m_travel.transform.GetChild(m_travel.transform.childCount - 1).name != "ClickToSetUp")
+            timeToPoint = -1;
+
         //else if (i == m_travel.NumChildren - 1)
         //{
         //    timeToPoint = 5;
