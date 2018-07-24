@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class RoofClicked : MonoBehaviour {
+public class RoofClicked : MonoBehaviour, IPointerClickHandler
+{
 
     [SerializeField]
     private float sizeCam;
     [SerializeField]
     Roof roof;
 
-    private void OnMouseDown()
+    public void OnPointerClick(PointerEventData data)
     {
         roof.ClickOnRoof(gameObject, sizeCam);
     }

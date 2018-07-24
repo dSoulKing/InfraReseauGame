@@ -41,14 +41,12 @@ public class ImageTuto : MonoBehaviour {
 
     public void NextButton ()
     {
-        Debug.Log("next");
         if (pageTutoNb < 4)
             pageTutoNb++;
     }
 
     public void BackButton()
     {
-        Debug.Log("back");
         if (pageTutoNb > 1)
             pageTutoNb--;
     }

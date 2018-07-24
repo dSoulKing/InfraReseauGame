@@ -88,6 +88,7 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
+        MenuStart.begin = true;
         if (MenuStart.begin && !gamePause)
         {
             timeWorker -= Time.deltaTime;
