@@ -11,6 +11,8 @@ public class RoofClicked : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     Roof roof;
 
+    public GameObject office;
+
     public void OnPointerClick(PointerEventData data)
     {
         roof.ClickOnRoof(gameObject, sizeCam);

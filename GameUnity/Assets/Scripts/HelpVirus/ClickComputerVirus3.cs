@@ -7,6 +7,8 @@ public class ClickComputerVirus3 : MonoBehaviour {
 
     private Camera mainCamera;
 
+    public GameObject directLight;
+
     void OnMouseDown()
     {
         mainCamera = Camera.main;
@@ -14,6 +16,8 @@ public class ClickComputerVirus3 : MonoBehaviour {
         mainCamera.orthographicSize = 3.4f;
         mainCamera.transform.position = new Vector3(320.4f, 31.77f, 0);
         mainCamera.transform.Rotate(-90, 0, 0);
+
+        directLight.SetActive(true);
 
         transform.parent.gameObject.GetComponent<VirusManager3>().virusStart = true;
         GameController.gamePause = true;

@@ -14,6 +14,5 @@ public class ClickOnPlay : MonoBehaviour, IPointerClickHandler
         pauseButton.SetActive(true);
         pauseGameobject.SetActive(false);
         GameController.gamePause = false;
-        Debug.Log("click");
     }
 }

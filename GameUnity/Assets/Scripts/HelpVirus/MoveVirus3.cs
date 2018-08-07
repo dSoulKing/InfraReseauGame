@@ -39,15 +39,17 @@ public class MoveVirus3 : MonoBehaviour {
 
         if (transform.position == target.position)
         {
-            Destroy(thisVirus);
+            VirusManager3.nbVirusDestroy++;
             VirusManager3.computerLife3--;
             VirusManager3.enter = false;
+            Destroy(thisVirus);
         }
 
     }
 
     private void OnMouseDown()
     {
+        VirusManager3.nbVirusDestroy++;
         virusRenderer.sprite = explosion;
         stop = false;
         Destroy(thisVirus, 0.1f);
@@ -58,7 +60,6 @@ public class MoveVirus3 : MonoBehaviour {
     {
         if (other.gameObject == GameObject.Find("CircleCenter"))
         {
-            Debug.Log("virus enter");
             VirusManager3.enter = true;
             transform.localScale = new Vector3(0.016f, 0.016f, 0.016f);
             virusRenderer.sprite = fireBall;

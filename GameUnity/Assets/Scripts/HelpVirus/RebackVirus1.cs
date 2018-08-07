@@ -30,6 +30,7 @@ public class RebackVirus1 : MonoBehaviour {
         if (VirusManager1.losePointOk)
             gameController.UpdateScore(10);
 
+        GameController.z++;
         GameController.gamePause = false;
 
         roof.GroundClicked();

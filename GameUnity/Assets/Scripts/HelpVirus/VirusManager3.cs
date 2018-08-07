@@ -9,10 +9,13 @@ public class VirusManager3 : MonoBehaviour {
     public SpriteRenderer backgroundComputer;
     public GameObject rebackButtonVirus;
     public GameObject loseText;
+    public GameObject winText;
+    public TextMesh computerLifeText;
 
     public bool virusStart = false;
     public static int computerLife3;
     public static bool enter;
+    public static int nbVirusDestroy;
 
     private Vector3 spawnVirus;
     private float timeNewVirus;
@@ -56,6 +59,8 @@ public class VirusManager3 : MonoBehaviour {
             active = false;
             loseText.SetActive(true);
         }
+        else
+            computerLifeText.text = "Vies restantes : " + computerLife3;
 
         if (timeNewVirus <= 0 && active && nbVirus < 30)
         {
@@ -134,7 +139,10 @@ public class VirusManager3 : MonoBehaviour {
             nbVirus++;
         }
 
-        if (nbVirus == 30)
+        if (nbVirusDestroy == 30)
+        {
             rebackButtonVirus.SetActive(true);
+            winText.SetActive(true);
+        }
     }
 }

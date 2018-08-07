@@ -77,7 +77,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.77
+  m_Radius: 1
 --- !u!114 &114728538938058636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBall: {fileID: 21300000, guid: 98a906cf4011a984aa067f4c4cffb94b, type: 3}
   explosion: {fileID: 21300000, guid: 2b5cf6e9faa1dcc479dab4d75c487199, type: 3}
-  target: {fileID: 4273928971361784, guid: f87a5a9629e99024b9ed07e062ac39ef, type: 2}
-  speed: 0.7
+  target: {fileID: 4706991291816938, guid: f87a5a9629e99024b9ed07e062ac39ef, type: 2}
+  speed: 0.9
 --- !u!212 &212233769904739222
 SpriteRenderer:
   m_ObjectHideFlags: 1

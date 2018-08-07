@@ -16,6 +16,7 @@ public class RepairManager : MonoBehaviour {
 
     public GameObject objectChronoText;
     public GameObject loseText;
+    public GameObject winText;
 
     public static bool B_1g1;
     public static bool B_1g2;
@@ -230,6 +231,7 @@ public class RepairManager : MonoBehaviour {
         if (i == 17 && y == 17 && w == 17 && z == 13)
         {
             rebackButtonRepair.SetActive(true);
+            winText.SetActive(true);
             computerCore.SetActive(true);
         }
 

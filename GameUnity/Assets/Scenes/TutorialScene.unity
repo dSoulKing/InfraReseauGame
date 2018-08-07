@@ -160,10 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d5dc4bf0d66f44e96343723b803d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  page1: {fileID: 21300000, guid: 03d496818dcf9ef4f899c54d20d25df6, type: 3}
-  page2: {fileID: 21300000, guid: 6e252dd81f2093143a5319b5650e12f1, type: 3}
-  page3: {fileID: 21300000, guid: 2f68880c1fea8ba4a86b8d7b1b3450ac, type: 3}
-  page4: {fileID: 21300000, guid: f8d335a579ed2c34e961033d99474dd7, type: 3}
+  page1: {fileID: 21300000, guid: 3ca1d5f92b6507643a097889e790424e, type: 3}
+  page2: {fileID: 21300000, guid: 344e96723e40f4848b43b6f174701b32, type: 3}
+  page3: {fileID: 21300000, guid: bf88380813813364e842087d074a915e, type: 3}
+  page4: {fileID: 21300000, guid: e53c9c648fad61340b2caa41be34506a, type: 3}
 --- !u!114 &256838505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 03d496818dcf9ef4f899c54d20d25df6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ca1d5f92b6507643a097889e790424e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -250,7 +250,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -993,7 +993,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}

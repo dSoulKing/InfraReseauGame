@@ -33,6 +33,7 @@ public class Roof : MonoBehaviour {
             boolRoof = false;
             selectedRoof = roof;
             mainCamera.orthographicSize = sizeCam;
+            roof.GetComponent<RoofClicked>().office.SetActive(true);
         }
     }
     
@@ -43,6 +44,7 @@ public class Roof : MonoBehaviour {
             mainCamera.orthographicSize = camSize;
             mainCamera.transform.position = camPos;
             selectedRoof.SetActive(true);
+            selectedRoof.GetComponent<RoofClicked>().office.SetActive(false);
             selectedRoof = null;
             boolRoof = true;
         }

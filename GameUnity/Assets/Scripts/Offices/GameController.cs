@@ -1,4 +1,5 @@
 ﻿using System;
+using ProgressBar;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ public class GameController : MonoBehaviour {
     public Text pointText;
     public GameObject gameOver;
     public GameObject gameWin;
+    public GameObject panel;
 
     private int random1;
     private int random2;
@@ -35,7 +37,7 @@ public class GameController : MonoBehaviour {
     private GameObject newProblemLoad;
     private GameObject newProblem;
 
-    public static float timeWorker = 14;
+    public static float timeWorker = 5;
     public static float timeMove = 0.4f;
     public static float timePoint = 1;
     public static float timeProblem = 30;
@@ -43,12 +45,15 @@ public class GameController : MonoBehaviour {
     private int a, b;
     private int x;
     public static int w;
+    public static int z;
+
+    public ProgressBarBehaviour progressBar;
 
     void Start()
     {
         //boolComputer1 = false;
         //boolComputer2 = false;
-
+        progressBar.Value=0f;
         a = b = 0;
         nbNo = 0;
         nbNi = 0;
@@ -56,6 +61,7 @@ public class GameController : MonoBehaviour {
 
         x = 0;
         w = 0;
+        z = 0;
 
         gamePause = false;
         totalPoints = 100;
@@ -88,7 +94,6 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        MenuStart.begin = true;
         if (MenuStart.begin && !gamePause)
         {
             timeWorker -= Time.deltaTime;
@@ -121,8 +126,10 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (x == 6 && w == 13)
+        if (progressBar.Value == 100)
             EndGame();
+
+        progressBar.Value = (w * 4) + (z * 9.6f);
     }
 
     private IEnumerator NewWorker()
@@ -199,7 +206,7 @@ public class GameController : MonoBehaviour {
     {
         foreach (Worker worker in workers)
         {
-            worker.TimeToMoveUsed -= 0.4f;
+            worker.TimeToMoveUsed -= 0.3f;
             if (worker.TimeToMoveUsed <= 0)
             {
                 worker.MoveWorker();
@@ -231,7 +238,6 @@ public class GameController : MonoBehaviour {
             x++;
             newProblem = Resources.Load("Problem" + x, typeof(GameObject)) as GameObject;
             newProblem = Instantiate(newProblem, newProblem.transform.position, newProblem.transform.rotation);
-            Debug.Log(x);
         }
 
         yield return null;
@@ -251,6 +257,7 @@ public class GameController : MonoBehaviour {
     private void EndGame()
     {
         roof.GroundClicked();
+        panel.SetActive(false);
         gameWin.transform.GetChild(1).GetComponent<TextMesh>().text = "with " + totalPoints + " points";
         if (totalPoints == 0)
             gameOver.SetActive(true);

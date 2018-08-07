@@ -30,6 +30,7 @@ public class RebackRepair : MonoBehaviour {
         mainCamera.transform.Rotate(90, 0, 0);
 
         GameController.gamePause = false;
+        GameController.z++;
 
         roof.GroundClicked();
 

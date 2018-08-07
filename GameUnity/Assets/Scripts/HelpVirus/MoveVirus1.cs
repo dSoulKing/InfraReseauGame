@@ -39,15 +39,17 @@ public class MoveVirus1 : MonoBehaviour
 
         if (transform.position == target.position)
         {
-            Destroy(thisVirus);
+            VirusManager1.nbVirusDestroy++;
             VirusManager1.computerLife1--;
             VirusManager1.enter = false;
+            Destroy(thisVirus);
         }
 
     }
 
     private void OnMouseDown()
     {
+        VirusManager1.nbVirusDestroy++;
         virusRenderer.sprite = explosion;
         stop = false;
         Destroy(thisVirus, 0.1f);
