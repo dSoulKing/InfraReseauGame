@@ -6,5 +6,6 @@ public class Recruteur : Cards {
 
     private void Start()
     {
+        
     }
 }

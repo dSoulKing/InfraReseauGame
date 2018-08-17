@@ -6,5 +6,6 @@ public class Commercial : Cards {
 
     private void Start()
     {
+        
     }
 }

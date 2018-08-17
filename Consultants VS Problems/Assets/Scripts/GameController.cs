@@ -9,7 +9,20 @@ public class GameController : MonoBehaviour {
     public GameObject problem1;
     public GameObject problem2;
     public GameObject problem3;
-    
+
+    public GameObject MOE;
+    public GameObject AMOA;
+    public GameObject Infra;
+    public GameObject Commercial;
+    public GameObject Recruteur;
+
+    public GameObject zoneCons;
+    public GameObject zoneCom;
+    public GameObject zoneRc;
+
+    public GameObject locations;
+    public GameObject hand;
+
     public GameObject listProblems;
     public GameObject listConsultants;
 
@@ -27,8 +40,14 @@ public class GameController : MonoBehaviour {
     private float timeToHit;
     private float timeTestBloc;
 
+    public static float timeBoostCom;
+
     public static int missionPoints;
     public static int lifePoints;
+
+    private int damageBonus;
+
+    private List<GameObject> handList;
 
     void Awake()
     {
@@ -43,14 +62,17 @@ public class GameController : MonoBehaviour {
     }
 
     void Start () {
-        Occupe = new bool[5, 4];
-        for(int i = 0; i < 5; i++)
+        Occupe = new bool[7, 6];
+        for(int i = 0; i < 7; i++)
         {
-            for(int j = 0; j < 4; j++)
+            for(int j = 0; j < 6; j++)
             {
                 Occupe[i, j] = false;
             }
         }
+
+        handList = new List<GameObject>();
+        Draw(2);
 
         consultantsInGame = new List<GameObject>();
         problemsInGame = new List<GameObject>();
@@ -59,9 +81,14 @@ public class GameController : MonoBehaviour {
         timeTestWinOrLose = 1;
         timeTestBloc = 2;
 
+        timeBoostCom = 0;
+
         missionPoints = 0;
         lifePoints = 100;
 
+        damageBonus = 0;
+
+        StartCoroutine(PositionCards());
     }
 
     private void Update()
@@ -74,7 +101,8 @@ public class GameController : MonoBehaviour {
         if (timeNewProblem <= 0)
         {
             StartCoroutine(NewProblem());
-            timeNewProblem = 20;
+            timeNewProblem = 8;
+            Draw(1);
         }
 
         if (timeTestWinOrLose <= 0)
@@ -87,6 +115,14 @@ public class GameController : MonoBehaviour {
             StartCoroutine(TestConsultantsBloc());
             timeTestBloc = 2;
         }
+
+        if (timeBoostCom > 0)
+        {
+            timeBoostCom -= Time.deltaTime;
+            damageBonus = 10;
+        }
+        else
+            damageBonus = 0;
     }
     
 
@@ -104,27 +140,33 @@ public class GameController : MonoBehaviour {
                 probChoice = problem1;
                 do
                 {
-                    randomPos = UnityEngine.Random.Range(0, 4);
-                    if (!Occupe[4, randomPos])
+                    randomPos = UnityEngine.Random.Range(0, 6);
+                    if (!Occupe[6, randomPos])
                     {
                         float xPos = 0;
                         doWhile = true;
                         switch (randomPos)
                         {
                             case 0:
-                                xPos = -2.4f;
+                                xPos = -2.59f;
                                 break;
                             case 1:
-                                xPos = -0.8f;
+                                xPos = -1.55f;
                                 break;
                             case 2:
-                                xPos = 0.8f;
+                                xPos = -0.51f;
                                 break;
                             case 3:
-                                xPos = 2.4f;
+                                xPos = 0.53f;
+                                break;
+                            case 4:
+                                xPos = 1.57f;
+                                break;
+                            case 5:
+                                xPos = 2.61f;
                                 break;
                         }
-                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.46f), probChoice.transform.rotation);
                         probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
@@ -133,27 +175,33 @@ public class GameController : MonoBehaviour {
                 probChoice = problem2;
                 do
                 {
-                    randomPos = UnityEngine.Random.Range(0, 4);
-                    if (!Occupe[4, randomPos])
+                    randomPos = UnityEngine.Random.Range(0, 6);
+                    if (!Occupe[6, randomPos])
                     {
                         float xPos = 0;
                         doWhile = true;
                         switch (randomPos)
                         {
                             case 0:
-                                xPos = -2.4f;
+                                xPos = -2.59f;
                                 break;
                             case 1:
-                                xPos = -0.8f;
+                                xPos = -1.55f;
                                 break;
                             case 2:
-                                xPos = 0.8f;
+                                xPos = -0.51f;
                                 break;
                             case 3:
-                                xPos = 2.4f;
+                                xPos = 0.53f;
+                                break;
+                            case 4:
+                                xPos = 1.57f;
+                                break;
+                            case 5:
+                                xPos = 2.61f;
                                 break;
                         }
-                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.46f), probChoice.transform.rotation);
                         probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
@@ -162,27 +210,33 @@ public class GameController : MonoBehaviour {
                 probChoice = problem3;
                 do
                 {
-                    randomPos = UnityEngine.Random.Range(0, 4);
-                    if (!Occupe[4, randomPos])
+                    randomPos = UnityEngine.Random.Range(0, 6);
+                    if (!Occupe[6, randomPos])
                     {
                         float xPos = 0;
                         doWhile = true;
                         switch (randomPos)
                         {
                             case 0:
-                                xPos = -2.4f;
+                                xPos = -2.59f;
                                 break;
                             case 1:
-                                xPos = -0.8f;
+                                xPos = -1.55f;
                                 break;
                             case 2:
-                                xPos = 0.8f;
+                                xPos = -0.51f;
                                 break;
                             case 3:
-                                xPos = 2.4f;
+                                xPos = 0.53f;
+                                break;
+                            case 4:
+                                xPos = 1.57f;
+                                break;
+                            case 5:
+                                xPos = 2.61f;
                                 break;
                         }
-                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice = Instantiate(probChoice, new Vector2(xPos, 4.46f), probChoice.transform.rotation);
                         probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
@@ -218,6 +272,16 @@ public class GameController : MonoBehaviour {
             transition.Add(listProblems.transform.GetChild(i).gameObject);
         }
         problemsInGame = transition;
+    }
+
+    private void UpdateListHand()
+    {
+        List<GameObject> transition = new List<GameObject>();
+        for (int i = 0; i < hand.transform.childCount; i++)
+        {
+            transition.Add(listConsultants.transform.GetChild(i).gameObject);
+        }
+        consultantsInGame = transition;
     }
 
     public void MissionUp()
@@ -271,12 +335,12 @@ public class GameController : MonoBehaviour {
                 if (consultantScript.type == problemScript.type)
                 {
                     consultantScript.Vie -= 10;
-                    problemScript.Vie -= 20;
+                    problemScript.Vie -= (20 + damageBonus);
                 }
                 else
                 {
-                    consultantScript.Vie -= 10;
-                    problemScript.Vie -= 10;
+                    consultantScript.Vie -= 20;
+                    problemScript.Vie -= (20 + damageBonus);
                 }
                 yield return new WaitForSeconds(1);
             }
@@ -287,6 +351,58 @@ public class GameController : MonoBehaviour {
                 Debug.Log("break");
                 yield break;
             }
+        }
+    }
+
+    private void Draw(int nbCards)
+    {
+        for (int i = 0; i < nbCards; i++)
+        {
+            GameObject newCard = null;
+            int random = Random.Range(0, 5);
+            switch (random)
+            {
+                case 0:
+                    newCard = Instantiate(Infra, Infra.transform.position, Infra.transform.rotation);
+                    newCard.transform.parent = hand.transform;
+                    handList.Add(newCard);
+                    break;
+                case 1:
+                    newCard = Instantiate(MOE, MOE.transform.position, MOE.transform.rotation);
+                    newCard.transform.parent = hand.transform;
+                    handList.Add(newCard);
+                    break;
+                case 2:
+                    newCard = Instantiate(AMOA, AMOA.transform.position, AMOA.transform.rotation);
+                    newCard.transform.parent = hand.transform;
+                    handList.Add(newCard);
+                    break;
+                case 3:
+                    newCard = Instantiate(Commercial, Commercial.transform.position, Commercial.transform.rotation);
+                    newCard.transform.parent = hand.transform;
+                    handList.Add(newCard);
+                    break;
+                case 4:
+                    newCard = Instantiate(Recruteur, Recruteur.transform.position, Recruteur.transform.rotation);
+                    newCard.transform.parent = hand.transform;
+                    handList.Add(newCard);
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator PositionCards()
+    {
+        while (true)
+        {
+            int i = 0;
+            foreach (GameObject card in handList)
+            {
+                card.transform.position = locations.transform.GetChild(i).transform.position;
+                i++;
+            }
+
+            yield return new WaitForSeconds(1);
         }
     }
 }

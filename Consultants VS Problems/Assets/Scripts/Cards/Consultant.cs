@@ -103,7 +103,6 @@ public class Consultant : Cards {
         timeMove = 10;
         timeTestWin = 1;
         bloc = false;
-
     }
 
     private void Update()
@@ -114,7 +113,7 @@ public class Consultant : Cards {
             if (timeMove <= 0)
             {
                 StartCoroutine(MoveConsultants());
-                timeMove = 10;
+                timeMove = 5;
             }
 
             timeTestWin -= Time.deltaTime;
@@ -134,11 +133,11 @@ public class Consultant : Cards {
 
     private IEnumerator MoveConsultants()
     {
-        if (i < 4)
+        if (i < 6)
         {
             if (!GameController.Occupe[i + 1, j])
             {
-                gameObject.transform.Translate(0, 1.38f, 0);
+                gameObject.transform.Translate(0, 1.05f, 0);
                 GameController.Occupe[i, j] = false;
                 i++;
                 GameController.Occupe[i, j] = true;
@@ -159,7 +158,7 @@ public class Consultant : Cards {
 
     private IEnumerator TestWinConsultants()
     {
-        if (i == 4)
+        if (i == 6)
         {
             animator.SetTrigger("DisapearConsultant");
             GameController.instance.MissionUp();

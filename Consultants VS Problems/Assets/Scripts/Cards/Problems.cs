@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Problems : MonoBehaviour {
 
-    private int i = 4;
+    private int i = 6;
     private int j;
 
     private float timeMove;
@@ -105,7 +105,7 @@ public class Problems : MonoBehaviour {
         {
             if (!GameController.Occupe[i - 1, j])
             {
-                gameObject.transform.Translate(0, -1.38f, 0);
+                gameObject.transform.Translate(0, -1.05f, 0);
                 GameController.Occupe[i, j] = false;
                 i--;
                 GameController.Occupe[i, j] = true;

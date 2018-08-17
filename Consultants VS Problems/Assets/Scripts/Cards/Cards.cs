@@ -5,8 +5,10 @@ using UnityEngine;
 public class Cards : MonoBehaviour {
 
     public GameObject zone;
+    public int typeCard;
 
     private bool inGame = false;
+    private bool inHand = true;
 
     public bool InGame
     {
@@ -21,26 +23,36 @@ public class Cards : MonoBehaviour {
         }
     }
 
-    public GameObject Zone
+    public bool InHand
     {
         get
         {
-            return zone;
+            return inHand;
         }
 
         set
         {
-            zone = value;
+            inHand = value;
         }
     }
-    
+
+    private void Start()
+    {
+        //if (typeCard == 1)
+        //    zone = GameController.instance.zoneCons;
+        //else if (typeCard == 2)
+        //    zone = GameController.instance.zoneCom;
+        //else if (typeCard == 3)
+        //    zone = GameController.instance.zoneRc;
+    }
 
     private void OnMouseDown()
     {
         if (!inGame)
         {
             if (GameController.cardClicking != null)
-                GameController.cardClicking.GetComponent<Cards>().Zone.SetActive(false);
+                //GameController.cardClicking.GetComponent<Cards>().zone.SetActive(false);
+                GameObject.Find("Cercles").SetActive(false);
 
             if (GameController.cardClicking == null)
             {
@@ -49,22 +61,23 @@ public class Cards : MonoBehaviour {
             }
             else if (GameController.cardClicking == gameObject)
             {
-                gameObject.transform.localScale = new Vector2(0.25f, 0.25f);
+                gameObject.transform.localScale = new Vector2(0.19f, 0.19f);
                 GameController.cardClicking = null;
             }
             else
             {
-                GameController.cardClicking.transform.localScale = new Vector2(0.25f, 0.25f);
+                GameController.cardClicking.transform.localScale = new Vector2(0.19f, 0.19f);
                 gameObject.transform.localScale = new Vector2(0.3f, 0.3f);
                 GameController.cardClicking = gameObject;
             }
 
+
             if (GameController.cardClicking != null)
             {
-                zone.SetActive(true);
+                GameObject.Find("Cercles").SetActive(true);
             }
             else
-                zone.SetActive(false);
+                GameObject.Find("Cercles").SetActive(false);
         }
     }
 }

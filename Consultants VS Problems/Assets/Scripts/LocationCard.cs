@@ -12,23 +12,27 @@ public class LocationCard : MonoBehaviour {
     private int i;
     [SerializeField]
     private int j;
-
-    private void Start()
-    {
-    }
+    
 
     private void OnMouseDown()
     {
-        if(gameObject.name == "RecruteurZone" || gameObject.name == "CommercialZone")
+        GameController.cardClicking.GetComponent<Cards>().InHand = false;
+        if (gameObject.name == "RecruteurZone")
         {
             GameObject cardClicking = GameController.cardClicking;
 
-            cardClicking.transform.position = gameObject.transform.position;
-            cardClicking.transform.localScale = new Vector2(0.2f, 0.2f);
-            cardClicking.GetComponent<Cards>().InGame = true;
+            Destroy(cardClicking);
 
             cardClicking = null;
-            parent.SetActive(false);
+        }
+        else if (gameObject.name == "CommercialZone")
+        {
+            GameObject cardClicking = GameController.cardClicking;
+
+            Destroy(cardClicking);
+            GameController.timeBoostCom = 15;
+
+            cardClicking = null;
         }
         else if (!GameController.Occupe[i,j])
         {
@@ -36,7 +40,7 @@ public class LocationCard : MonoBehaviour {
             Consultant consultant = cardClicking.GetComponent<Consultant>();
 
             cardClicking.transform.position = gameObject.transform.position;
-            cardClicking.transform.localScale = new Vector2(0.25f, 0.25f);
+            cardClicking.transform.localScale = new Vector2(0.15f, 0.15f);
             cardClicking.GetComponent<Cards>().InGame = true;
 
             consultant.gameObject.transform.parent = GameController.instance.listConsultants.transform;
