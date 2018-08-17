@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public static GameController instance;
+
     public GameObject problem1;
     public GameObject problem2;
     public GameObject problem3;
+    
+    public GameObject listProblems;
+    public GameObject listConsultants;
 
     public static GameObject cardClicking = null;
 
@@ -15,16 +20,27 @@ public class GameController : MonoBehaviour {
     public static List<GameObject> consultantsInGame;
     private static List<GameObject> problemsInGame;
 
-    private bool newtProbOK = true;
-
-    private float timeMoveConsultants;
-    private float timeMoveProblems;
+    private bool newProbOK = true;
+    
     private float timeNewProblem;
     private float timeTestWinOrLose;
     private float timeToHit;
+    private float timeTestBloc;
 
-    private int missionPoints;
-    private int lifePoints;
+    public static int missionPoints;
+    public static int lifePoints;
+
+    void Awake()
+    {
+        //If we don't currently have a game control...
+        if (instance == null)
+            //...set this one to be it...
+            instance = this;
+        //...otherwise...
+        else if (instance != this)
+            //...destroy this one because it is a duplicate.
+            Destroy(gameObject);
+    }
 
     void Start () {
         Occupe = new bool[5, 4];
@@ -38,35 +54,22 @@ public class GameController : MonoBehaviour {
 
         consultantsInGame = new List<GameObject>();
         problemsInGame = new List<GameObject>();
-
-        timeMoveConsultants = 5;
-        timeMoveProblems = 10;
+        
         timeNewProblem = 5;
         timeTestWinOrLose = 1;
+        timeTestBloc = 2;
 
         missionPoints = 0;
         lifePoints = 100;
+
     }
 
     private void Update()
     {
-        timeMoveConsultants -= Time.deltaTime;
-        timeMoveProblems -= Time.deltaTime;
-        if (newtProbOK)
+        if (newProbOK /*&& problemsInGame.Count < 6*/)
             timeNewProblem -= Time.deltaTime;
         timeTestWinOrLose -= Time.deltaTime;
-
-        if (timeMoveConsultants <= 0)
-        {
-            StartCoroutine(MoveConsultants());
-            timeMoveConsultants = 10;
-        }
-
-        if (timeMoveProblems <= 0)
-        {
-            StartCoroutine(MoveProblems());
-            timeMoveProblems = 10;
-        }
+        timeTestBloc -= Time.deltaTime;
 
         if (timeNewProblem <= 0)
         {
@@ -76,74 +79,23 @@ public class GameController : MonoBehaviour {
 
         if (timeTestWinOrLose <= 0)
         {
-            StartCoroutine(TestWinConsultants());
-            StartCoroutine(TestLoseProblems());
             timeTestWinOrLose = 1;
         }
-        
-    }
 
-    private IEnumerator MoveConsultants()
-    {
-        foreach(GameObject consultant in consultantsInGame)
+        if (timeTestBloc <= 0)
         {
-            Consultant consultantScript = consultant.GetComponent<Consultant>();
-            
-            if (consultantScript.I < 4)
-            {
-                if (!Occupe[consultantScript.I + 1, consultantScript.J])
-                {
-                    consultant.transform.Translate(0, 1.38f, 0);
-                    Occupe[consultantScript.I, consultantScript.J] = false;
-                    consultantScript.I++;
-                    Occupe[consultantScript.I, consultantScript.J] = true;
-                }
-                else
-                {
-                    foreach (GameObject problem in problemsInGame)
-                    {
-                        Problems problemScript = problem.GetComponent<Problems>();
-                        if (problemScript.I == consultantScript.I + 1 && problemScript.J == consultantScript.J)
-                        {
-                            StartCoroutine(Fight(consultant, problem));
-                        }
-                    }
-                }
-            }
+            StartCoroutine(TestConsultantsBloc());
+            timeTestBloc = 2;
         }
-
-        yield return null;
     }
-
-    private IEnumerator TestWinConsultants()
-    {
-        List<GameObject> transition = new List<GameObject>();
-        foreach (GameObject consultant in consultantsInGame)
-        {
-            Consultant consultantScript = consultant.GetComponent<Consultant>();
-
-            if (consultantScript.I == 4)
-            {
-                consultantScript.Animator.SetTrigger("DisapearConsultant");
-                Destroy(consultant, 1.66f);
-                MissionUp();
-                Occupe[consultantScript.I, consultantScript.J] = false;
-            }
-            else
-                transition.Add(consultant);
-        }
-        consultantsInGame = transition;
-        //Debug.Log(consultantsInGame.Count);
-
-        yield return null;
-    }
+    
 
     private IEnumerator NewProblem()
     {
-        newtProbOK = false;
+        newProbOK = false;
         int randomProb = 0;
         int randomPos = 0;
-        GameObject probChoice = new GameObject();
+        GameObject probChoice = null;
         randomProb = UnityEngine.Random.Range(1, 4);
         bool doWhile = false;
         switch (randomProb)
@@ -173,6 +125,7 @@ public class GameController : MonoBehaviour {
                                 break;
                         }
                         probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
                 break;
@@ -201,6 +154,7 @@ public class GameController : MonoBehaviour {
                                 break;
                         }
                         probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
                 break;
@@ -229,6 +183,7 @@ public class GameController : MonoBehaviour {
                                 break;
                         }
                         probChoice = Instantiate(probChoice, new Vector2(xPos, 4.5f), probChoice.transform.rotation);
+                        probChoice.transform.parent = listProblems.transform;
                     }
                 } while (!doWhile);
                 break;
@@ -238,133 +193,100 @@ public class GameController : MonoBehaviour {
         Occupe[problems.I, problems.J] = true;
         problemsInGame.Add(probChoice);
 
-        newtProbOK = true;
+        newProbOK = true;
 
-        yield return null;
+        UpdateListProblems();
+
+        yield break;
     }
 
-    private IEnumerator MoveProblems()
-    {
-        foreach (GameObject problem in problemsInGame)
-        {
-            Problems problemScript = problem.GetComponent<Problems>();
-
-            if (problemScript.I > 0)
-            {
-                if (!Occupe[problemScript.I - 1, problemScript.J])
-                {
-                    problem.transform.Translate(0, -1.38f, 0);
-                    Occupe[problemScript.I, problemScript.J] = false;
-                    problemScript.I--;
-                    Occupe[problemScript.I, problemScript.J] = true;
-                }
-                else
-                {
-                    foreach (GameObject consultant in consultantsInGame)
-                    {
-                        Problems consultantScript = consultant.GetComponent<Problems>();
-                        if (consultantScript.I == problemScript.I - 1 && consultantScript.J == problemScript.J)
-                        {
-                            StartCoroutine(Fight(consultant, problem));
-                        }
-                    }
-                }
-            }
-        }
-
-        yield return null;
-    }
-
-    private IEnumerator TestLoseProblems()
+    public void UpdateListConsultants()
     {
         List<GameObject> transition = new List<GameObject>();
-        foreach (GameObject problem in problemsInGame)
+        for (int i = 0; i < listConsultants.transform.childCount; i++)
         {
-            Problems problemScript = problem.GetComponent<Problems>();
+            transition.Add(listConsultants.transform.GetChild(i).gameObject);
+        }
+        consultantsInGame = transition;
+    }
 
-            if (problemScript.I == 0)
-            {
-                problemScript.Animator.SetTrigger("DisapearConsultant");
-                Destroy(problem, 1.66f);
-                LifeDown();
-                Occupe[problemScript.I, problemScript.J] = false;
-            }
-            else
-                transition.Add(problem);
+    public void UpdateListProblems()
+    {
+        List<GameObject> transition = new List<GameObject>();
+        for (int i = 0; i < listProblems.transform.childCount; i++)
+        {
+            transition.Add(listProblems.transform.GetChild(i).gameObject);
         }
         problemsInGame = transition;
-        //Debug.Log(problemsInGame.Count);
-
-        yield return null;
     }
-    
 
-    private void MissionUp()
+    public void MissionUp()
     {
         missionPoints = missionPoints + 10;
     }
-    
-    private void LifeDown()
+
+    public void LifeDown()
     {
         lifePoints = lifePoints - 10;
     }
 
+    public GameObject TestToFight(int i, int j)
+    {
+        Debug.Log("testFight");
+        GameObject problemFight = null;
+        foreach(GameObject problem in problemsInGame)
+        {
+            Problems script = problem.GetComponent<Problems>();
+            if (script.I == i + 1 && script.J == j)
+                problemFight = problem;
+        }
+
+        return problemFight;
+    }
+
+    private IEnumerator TestConsultantsBloc()
+    {
+        foreach (GameObject consultant in consultantsInGame)
+        {
+            if (consultant.GetComponent<Consultant>().Bloc)
+            {
+                StartCoroutine(Fight(consultant, consultant.GetComponent<Consultant>().ProblemFight));
+                consultant.GetComponent<Consultant>().Bloc = false;
+            }
+        }
+
+        yield break;
+    }
+
     private IEnumerator Fight(GameObject consultant, GameObject problem)
     {
-        Consultant consultantScript = consultant.GetComponent<Consultant>();
-        Problems problemScript = problem.GetComponent<Problems>();
-        List<GameObject> transition = new List<GameObject>();
-        List<GameObject> transition2 = new List<GameObject>();
-        do
+        while (true)
         {
-            Debug.Log(consultantScript.Vie);
-            Debug.Log(problemScript.Vie);
-            if (consultantScript.type == problemScript.type)
+            if (consultant != null && problem != null)
             {
-                consultantScript.Vie -= 20;
-                problemScript.Vie -= 40;
+                Consultant consultantScript = consultant.GetComponent<Consultant>();
+                Debug.Log(consultantScript.Vie);
+                Problems problemScript = problem.GetComponent<Problems>();
+                Debug.Log(problemScript.Vie);
+                if (consultantScript.type == problemScript.type)
+                {
+                    consultantScript.Vie -= 10;
+                    problemScript.Vie -= 20;
+                }
+                else
+                {
+                    consultantScript.Vie -= 10;
+                    problemScript.Vie -= 10;
+                }
+                yield return new WaitForSeconds(1);
             }
             else
             {
-                consultantScript.Vie -= 20;
-                problemScript.Vie -= 20;
+                UpdateListConsultants();
+                UpdateListProblems();
+                Debug.Log("break");
+                yield break;
             }
-            yield return new WaitForSeconds(2);
-
-        } while (consultantScript.Vie > 0 && problemScript.Vie > 0);
-
-        if (consultantScript.Vie <= 0)
-        {
-            Debug.Log("if consultant dead");
-            consultantScript.Alive = false;
-            consultant.SetActive(false);
-            Occupe[consultantScript.I, consultantScript.J] = false;
-
-            foreach (GameObject consultantTest in consultantsInGame)
-            {
-                if (!consultantTest.GetComponent<Consultant>().Alive)
-                    transition.Add(consultantTest);
-            }
-            consultantsInGame = transition;
-            //Destroy(consultant);
         }
-            
-        if (problemScript.Vie <= 0)
-        {
-            Debug.Log("if problem dead");
-            problemScript.Alive = false;
-            problem.SetActive(false);
-            Occupe[problemScript.I, problemScript.J] = false;
-
-            foreach (GameObject problemTest in problemsInGame)
-            {
-                if (!problemTest.GetComponent<Consultant>().Alive)
-                    transition2.Add(problemTest);
-            }
-            problemsInGame = transition2;
-            //Destroy(problem);
-        }
-
-        yield return null;
     }
 }

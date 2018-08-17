@@ -21,23 +21,29 @@ public class LocationCard : MonoBehaviour {
     {
         if(gameObject.name == "RecruteurZone" || gameObject.name == "CommercialZone")
         {
-            GameController.cardClicking.transform.position = gameObject.transform.position;
-            GameController.cardClicking.transform.localScale = new Vector2(0.2f, 0.2f);
-            GameController.cardClicking.GetComponent<Cards>().InGame = true;
+            GameObject cardClicking = GameController.cardClicking;
 
-            GameController.cardClicking = null;
+            cardClicking.transform.position = gameObject.transform.position;
+            cardClicking.transform.localScale = new Vector2(0.2f, 0.2f);
+            cardClicking.GetComponent<Cards>().InGame = true;
+
+            cardClicking = null;
             parent.SetActive(false);
         }
         else if (!GameController.Occupe[i,j])
         {
-            GameController.cardClicking.transform.position = gameObject.transform.position;
-            GameController.cardClicking.transform.localScale = new Vector2(0.25f, 0.25f);
-            GameController.cardClicking.GetComponent<Cards>().InGame = true;
+            GameObject cardClicking = GameController.cardClicking;
+            Consultant consultant = cardClicking.GetComponent<Consultant>();
 
-            GameController.cardClicking.GetComponent<Consultant>().J = j;
-            GameController.consultantsInGame.Add(GameController.cardClicking);
+            cardClicking.transform.position = gameObject.transform.position;
+            cardClicking.transform.localScale = new Vector2(0.25f, 0.25f);
+            cardClicking.GetComponent<Cards>().InGame = true;
 
-            GameController.cardClicking = null;
+            consultant.gameObject.transform.parent = GameController.instance.listConsultants.transform;
+            consultant.J = j;
+            GameController.consultantsInGame.Add(cardClicking);
+
+            cardClicking = null;
             parent.SetActive(false);
             GameController.Occupe[i,j] = true;
         }
