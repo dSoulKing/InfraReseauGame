@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Commercial : Cards {
+public class Commercial : MonoBehaviour {
 
     private void Start()
     {

@@ -94,7 +94,7 @@ public class Problems : MonoBehaviour {
 
         if (vie <= 0)
         {
-            GameController.Occupe[i, j] = false;
+            GameController.instance.Occupe[i, j] = false;
             Destroy(gameObject);
         }
     }
@@ -103,12 +103,12 @@ public class Problems : MonoBehaviour {
     {
         if (i > 0)
         {
-            if (!GameController.Occupe[i - 1, j])
+            if (!GameController.instance.Occupe[i - 1, j])
             {
                 gameObject.transform.Translate(0, -1.05f, 0);
-                GameController.Occupe[i, j] = false;
+                GameController.instance.Occupe[i, j] = false;
                 i--;
-                GameController.Occupe[i, j] = true;
+                GameController.instance.Occupe[i, j] = true;
             }
             //else
             //{
@@ -132,11 +132,17 @@ public class Problems : MonoBehaviour {
         {
             animator.SetTrigger("DisapearConsultant");
             GameController.instance.LifeDown();
-            GameController.Occupe[i, j] = false;
+            GameController.instance.Occupe[i, j] = false;
             GameController.instance.UpdateListProblems();
             Destroy(gameObject, 1.66f);
         }
 
         yield break;
+    }
+
+    public void EndGameTimer()
+    {
+        timeMove = 50000;
+        timeTestWin = 50000;
     }
 }

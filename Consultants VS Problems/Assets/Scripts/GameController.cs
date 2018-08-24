@@ -16,9 +16,12 @@ public class GameController : MonoBehaviour {
     public GameObject Commercial;
     public GameObject Recruteur;
 
-    public GameObject zoneCons;
-    public GameObject zoneCom;
-    public GameObject zoneRc;
+    public GameObject winText;
+    public GameObject loseText;
+
+    //public GameObject zoneCons;
+    //public GameObject zoneCom;
+    //public GameObject zoneRc;
 
     public GameObject locations;
     public GameObject hand;
@@ -28,7 +31,7 @@ public class GameController : MonoBehaviour {
 
     public static GameObject cardClicking = null;
 
-    public static bool[,] Occupe { get; set; }
+    public bool[,] Occupe { get; set; }
 
     public static List<GameObject> consultantsInGame;
     private static List<GameObject> problemsInGame;
@@ -36,8 +39,6 @@ public class GameController : MonoBehaviour {
     private bool newProbOK = true;
     
     private float timeNewProblem;
-    private float timeTestWinOrLose;
-    private float timeToHit;
     private float timeTestBloc;
 
     public static float timeBoostCom;
@@ -70,15 +71,15 @@ public class GameController : MonoBehaviour {
                 Occupe[i, j] = false;
             }
         }
+        
 
         handList = new List<GameObject>();
-        Draw(2);
+        Draw(2, 1);
 
         consultantsInGame = new List<GameObject>();
         problemsInGame = new List<GameObject>();
         
         timeNewProblem = 5;
-        timeTestWinOrLose = 1;
         timeTestBloc = 2;
 
         timeBoostCom = 0;
@@ -93,28 +94,36 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
+        //if(Occupe[6, 0])
+        //    Debug.Log(Occupe[6, 0]);
+        //if (Occupe[6, 1])
+        //    Debug.Log(Occupe[6, 1]);
+        //if (Occupe[6, 2])
+        //    Debug.Log(Occupe[6, 2]);
+        //if (Occupe[6, 3])
+        //    Debug.Log(Occupe[6, 3]);
+        //if (Occupe[6, 4])
+        //    Debug.Log(Occupe[6, 4]);
+        //if (Occupe[6, 5])
+        //    Debug.Log(Occupe[6, 5]);
+
         if (newProbOK /*&& problemsInGame.Count < 6*/)
             timeNewProblem -= Time.deltaTime;
-        timeTestWinOrLose -= Time.deltaTime;
         timeTestBloc -= Time.deltaTime;
 
         if (timeNewProblem <= 0)
         {
             StartCoroutine(NewProblem());
+            StartCoroutine(UpdateCaseLibre());
             timeNewProblem = 8;
-            Draw(1);
+            Draw(1, 1);
         }
 
-        if (timeTestWinOrLose <= 0)
-        {
-            timeTestWinOrLose = 1;
-        }
-
-        if (timeTestBloc <= 0)
-        {
-            StartCoroutine(TestConsultantsBloc());
-            timeTestBloc = 2;
-        }
+        //if (timeTestBloc <= 0)
+        //{
+        //    StartCoroutine(TestConsultantsBloc());
+        //    timeTestBloc = 2;
+        //}
 
         if (timeBoostCom > 0)
         {
@@ -257,20 +266,20 @@ public class GameController : MonoBehaviour {
     public void UpdateListConsultants()
     {
         List<GameObject> transition = new List<GameObject>();
+
         for (int i = 0; i < listConsultants.transform.childCount; i++)
-        {
             transition.Add(listConsultants.transform.GetChild(i).gameObject);
-        }
+
         consultantsInGame = transition;
     }
 
     public void UpdateListProblems()
     {
         List<GameObject> transition = new List<GameObject>();
+
         for (int i = 0; i < listProblems.transform.childCount; i++)
-        {
             transition.Add(listProblems.transform.GetChild(i).gameObject);
-        }
+
         problemsInGame = transition;
     }
 
@@ -279,24 +288,49 @@ public class GameController : MonoBehaviour {
         List<GameObject> transition = new List<GameObject>();
         for (int i = 0; i < hand.transform.childCount; i++)
         {
-            transition.Add(listConsultants.transform.GetChild(i).gameObject);
+            transition.Add(hand.transform.GetChild(i).gameObject);
         }
-        consultantsInGame = transition;
+        handList = transition;
     }
 
     public void MissionUp()
     {
         missionPoints = missionPoints + 10;
+        if (missionPoints >= 100)
+        {
+            EndGame();
+            winText.SetActive(true);
+        }
+        Debug.Log(missionPoints);
     }
 
     public void LifeDown()
     {
         lifePoints = lifePoints - 10;
+        if (lifePoints <= 0)
+        {
+            EndGame();
+            loseText.SetActive(true);
+        }
+        Debug.Log(lifePoints);
+    }
+
+    public void EndGame()
+    {
+        timeNewProblem = 50000;
+        timeTestBloc = 50000;
+
+        UpdateListProblems();
+        foreach (GameObject problem in problemsInGame)
+            problem.GetComponent<Problems>().EndGameTimer();
+
+        UpdateListConsultants();
+        foreach (GameObject consultant in consultantsInGame)
+            consultant.GetComponent<CardConsultant>().EndGameTimer();
     }
 
     public GameObject TestToFight(int i, int j)
     {
-        Debug.Log("testFight");
         GameObject problemFight = null;
         foreach(GameObject problem in problemsInGame)
         {
@@ -308,30 +342,28 @@ public class GameController : MonoBehaviour {
         return problemFight;
     }
 
-    private IEnumerator TestConsultantsBloc()
-    {
-        foreach (GameObject consultant in consultantsInGame)
-        {
-            if (consultant.GetComponent<Consultant>().Bloc)
-            {
-                StartCoroutine(Fight(consultant, consultant.GetComponent<Consultant>().ProblemFight));
-                consultant.GetComponent<Consultant>().Bloc = false;
-            }
-        }
+    //private IEnumerator TestConsultantsBloc()
+    //{
+    //    foreach (GameObject consultant in consultantsInGame)
+    //        if (consultant.GetComponent<CardConsultant>().Bloc)
+    //        {
+    //            StartCoroutine(Fight(consultant, consultant.GetComponent<CardConsultant>().ProblemFight));
+    //            consultant.GetComponent<CardConsultant>().Bloc = false;
+    //        }
 
-        yield break;
-    }
+    //    yield break;
+    //}
 
-    private IEnumerator Fight(GameObject consultant, GameObject problem)
+    public IEnumerator Fight(GameObject consultant, GameObject problem)
     {
         while (true)
         {
             if (consultant != null && problem != null)
             {
-                Consultant consultantScript = consultant.GetComponent<Consultant>();
-                Debug.Log(consultantScript.Vie);
+                CardConsultant consultantScript = consultant.GetComponent<CardConsultant>();
+                //Debug.Log(consultantScript.Vie);
                 Problems problemScript = problem.GetComponent<Problems>();
-                Debug.Log(problemScript.Vie);
+                //Debug.Log(problemScript.Vie);
                 if (consultantScript.type == problemScript.type)
                 {
                     consultantScript.Vie -= 10;
@@ -348,53 +380,58 @@ public class GameController : MonoBehaviour {
             {
                 UpdateListConsultants();
                 UpdateListProblems();
-                Debug.Log("break");
                 yield break;
             }
         }
     }
 
-    private void Draw(int nbCards)
+    public void Draw(int nbCards, int typeOfDraw)
     {
-        for (int i = 0; i < nbCards; i++)
-        {
-            GameObject newCard = null;
-            int random = Random.Range(0, 5);
-            switch (random)
+        if (handList.Count <= 5)
+            for (int i = 0; i < nbCards; i++)
             {
-                case 0:
-                    newCard = Instantiate(Infra, Infra.transform.position, Infra.transform.rotation);
-                    newCard.transform.parent = hand.transform;
-                    handList.Add(newCard);
-                    break;
-                case 1:
-                    newCard = Instantiate(MOE, MOE.transform.position, MOE.transform.rotation);
-                    newCard.transform.parent = hand.transform;
-                    handList.Add(newCard);
-                    break;
-                case 2:
-                    newCard = Instantiate(AMOA, AMOA.transform.position, AMOA.transform.rotation);
-                    newCard.transform.parent = hand.transform;
-                    handList.Add(newCard);
-                    break;
-                case 3:
-                    newCard = Instantiate(Commercial, Commercial.transform.position, Commercial.transform.rotation);
-                    newCard.transform.parent = hand.transform;
-                    handList.Add(newCard);
-                    break;
-                case 4:
-                    newCard = Instantiate(Recruteur, Recruteur.transform.position, Recruteur.transform.rotation);
-                    newCard.transform.parent = hand.transform;
-                    handList.Add(newCard);
-                    break;
+                int random = 0;
+                GameObject newCard = null;
+                if (typeOfDraw == 1)
+                    random = Random.Range(0, 5);
+                else if (typeOfDraw == 2)
+                    random = Random.Range(0, 3);
+                switch (random)
+                {
+                    case 0:
+                        newCard = Instantiate(Infra, Infra.transform.position, Infra.transform.rotation);
+                        newCard.transform.parent = hand.transform;
+                        handList.Add(newCard);
+                        break;
+                    case 1:
+                        newCard = Instantiate(MOE, MOE.transform.position, MOE.transform.rotation);
+                        newCard.transform.parent = hand.transform;
+                        handList.Add(newCard);
+                        break;
+                    case 2:
+                        newCard = Instantiate(AMOA, AMOA.transform.position, AMOA.transform.rotation);
+                        newCard.transform.parent = hand.transform;
+                        handList.Add(newCard);
+                        break;
+                    case 3:
+                        newCard = Instantiate(Commercial, Commercial.transform.position, Commercial.transform.rotation);
+                        newCard.transform.parent = hand.transform;
+                        handList.Add(newCard);
+                        break;
+                    case 4:
+                        newCard = Instantiate(Recruteur, Recruteur.transform.position, Recruteur.transform.rotation);
+                        newCard.transform.parent = hand.transform;
+                        handList.Add(newCard);
+                        break;
+                }
             }
-        }
     }
 
     private IEnumerator PositionCards()
     {
         while (true)
         {
+            UpdateListHand();
             int i = 0;
             foreach (GameObject card in handList)
             {
@@ -405,4 +442,35 @@ public class GameController : MonoBehaviour {
             yield return new WaitForSeconds(1);
         }
     }
+    
+    private IEnumerator UpdateCaseLibre()
+    {
+        UpdateListProblems();
+        for (int j = 0; j < 6; j++)
+        {
+            bool occupe = false;
+
+            foreach (GameObject problem in problemsInGame)
+                if (problem.GetComponent<Problems>().I == 6 && problem.GetComponent<Problems>().J == j)
+                    occupe = true;
+            if (!occupe)
+                Occupe[6, j] = false;
+        }
+
+        UpdateListConsultants();
+        for (int j = 0; j < 6; j++)
+        {
+            bool occupe = false;
+
+            foreach (GameObject consultant in consultantsInGame)
+                if (consultant.GetComponent<CardConsultant>().I == 0 && consultant.GetComponent<CardConsultant>().J == j)
+                    occupe = true;
+            if (!occupe)
+                Occupe[6, j] = false;
+        }
+
+        yield break;
+    }
+
+
 }

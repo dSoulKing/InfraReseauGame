@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212678817575285770}
   - component: {fileID: 50408594749173442}
   - component: {fileID: 61729064321581564}
-  - component: {fileID: 114638649932624706}
+  - component: {fileID: 114932080762099218}
   m_Layer: 0
   m_Name: Recruteur
-  m_TagString: Untagged
+  m_TagString: recruteur
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.11, y: 4.74}
   m_EdgeRadius: 0
---- !u!114 &114638649932624706
+--- !u!114 &114932080762099218
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,10 +96,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1305063264092970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4bfd880f3175f4fb774864c7b0c8ff, type: 3}
+  m_Script: {fileID: 11500000, guid: d4262dd23b3113546a3e5dca39ee08ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeCard: 3
 --- !u!212 &212678817575285770
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -133,7 +132,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fd5a1aa5bb2b913488bbff5220dd939f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

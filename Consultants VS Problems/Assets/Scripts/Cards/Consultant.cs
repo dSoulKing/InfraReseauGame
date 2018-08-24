@@ -2,172 +2,184 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Consultant : Cards {
+public class Consultant : MonoBehaviour {
 
-    private int i = 0;
-    private int j;
+    //private int i = 0;
+    //private int j;
 
-    private float timeMove;
-    private float timeTestWin;
+    //private float timeMove;
+    //private float timeTestWin;
 
-    private bool bloc;
-    private GameObject problemFight;
+    //private bool bloc;
+    //private GameObject problemFight;
 
-    private Animator animator;
+    //private Animator animator;
 
-    public string type;
-    private int vie;
+    //public string type;
+    //private int vie;
 
-    public int I
-    {
-        get
-        {
-            return i;
-        }
+    //public int I
+    //{
+    //    get
+    //    {
+    //        return i;
+    //    }
 
-        set
-        {
-            i = value;
-        }
-    }
+    //    set
+    //    {
+    //        i = value;
+    //    }
+    //}
 
-    public int J
-    {
-        get
-        {
-            return j;
-        }
+    //public int J
+    //{
+    //    get
+    //    {
+    //        return j;
+    //    }
 
-        set
-        {
-            j = value;
-        }
-    }
+    //    set
+    //    {
+    //        j = value;
+    //    }
+    //}
 
-    public Animator Animator
-    {
-        get
-        {
-            return animator;
-        }
+    //public Animator Animator
+    //{
+    //    get
+    //    {
+    //        return animator;
+    //    }
 
-        set
-        {
-            animator = value;
-        }
-    }
+    //    set
+    //    {
+    //        animator = value;
+    //    }
+    //}
 
-    public int Vie
-    {
-        get
-        {
-            return vie;
-        }
+    //public int Vie
+    //{
+    //    get
+    //    {
+    //        return vie;
+    //    }
 
-        set
-        {
-            vie = value;
-        }
-    }
+    //    set
+    //    {
+    //        vie = value;
+    //    }
+    //}
 
-    public bool Bloc
-    {
-        get
-        {
-            return bloc;
-        }
+    //public bool Bloc
+    //{
+    //    get
+    //    {
+    //        return bloc;
+    //    }
 
-        set
-        {
-            bloc = value;
-        }
-    }
+    //    set
+    //    {
+    //        bloc = value;
+    //    }
+    //}
 
-    public GameObject ProblemFight
-    {
-        get
-        {
-            return problemFight;
-        }
+    //public GameObject ProblemFight
+    //{
+    //    get
+    //    {
+    //        return problemFight;
+    //    }
 
-        set
-        {
-            problemFight = value;
-        }
-    }
+    //    set
+    //    {
+    //        problemFight = value;
+    //    }
+    //}
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-        vie = 100;
-        timeMove = 10;
-        timeTestWin = 1;
-        bloc = false;
-    }
+    //private void Start()
+    //{
+    //    animator = GetComponent<Animator>();
+    //    vie = 100;
+    //    timeMove = 10;
+    //    timeTestWin = 1;
+    //    bloc = false;
 
-    private void Update()
-    {
-        if (InGame)
-        {
-            timeMove -= Time.deltaTime;
-            if (timeMove <= 0)
-            {
-                StartCoroutine(MoveConsultants());
-                timeMove = 5;
-            }
+    //    if (typeCard == 1)
+    //    {
+    //        Debug.Log("enter if type 1");
+    //        zoneParent = GameObject.Find("Cercles");
+    //        Debug.Log(zoneParent.name);
+    //        //zone = GameObject.FindWithTag("Cercles");
+    //        zone = zoneParent.GetComponentsInChildren<Transform>(true);
+    //    }
 
-            timeTestWin -= Time.deltaTime;
-            if (timeTestWin <= 0)
-            {
-                StartCoroutine(TestWinConsultants());
-                timeTestWin = 1;
-            }
+    //    colliderZone = zoneParent.GetComponent<CircleCollider2D>();
+    //}
 
-            if (vie <= 0)
-            {
-                GameController.Occupe[i, j] = false;
-                Destroy(gameObject);
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (InGame)
+    //    {
+    //        timeMove -= Time.deltaTime;
+    //        timeTestWin -= Time.deltaTime;
 
-    private IEnumerator MoveConsultants()
-    {
-        if (i < 6)
-        {
-            if (!GameController.Occupe[i + 1, j])
-            {
-                gameObject.transform.Translate(0, 1.05f, 0);
-                GameController.Occupe[i, j] = false;
-                i++;
-                GameController.Occupe[i, j] = true;
-            }
-            else
-            {
-                GameObject problemFightTest = GameController.instance.TestToFight(i, j);
-                if (problemFightTest != null)
-                {
-                    bloc = true;
-                    problemFight = problemFightTest;
-                }
-            }
-        }
+    //        if (timeMove <= 0)
+    //        {
+    //            StartCoroutine(MoveConsultants());
+    //            timeMove = 5;
+    //        }
+            
+    //        if (timeTestWin <= 0)
+    //        {
+    //            StartCoroutine(TestWinConsultants());
+    //            timeTestWin = 1;
+    //        }
 
-        yield break;
-    }
+    //        if (vie <= 0)
+    //        {
+    //            GameController.Occupe[i, j] = false;
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //}
 
-    private IEnumerator TestWinConsultants()
-    {
-        if (i == 6)
-        {
-            animator.SetTrigger("DisapearConsultant");
-            GameController.instance.MissionUp();
-            GameController.Occupe[i, j] = false;
-            GameController.instance.UpdateListConsultants();
-            Destroy(gameObject, 1.66f);
-        }
+    //private IEnumerator MoveConsultants()
+    //{
+    //    if (i < 6)
+    //    {
+    //        if (!GameController.Occupe[i + 1, j])
+    //        {
+    //            gameObject.transform.Translate(0, 1.05f, 0);
+    //            GameController.Occupe[i, j] = false;
+    //            i++;
+    //            GameController.Occupe[i, j] = true;
+    //        }
+    //        else
+    //        {
+    //            GameObject problemFightTest = GameController.instance.TestToFight(i, j);
+    //            if (problemFightTest != null)
+    //            {
+    //                bloc = true;
+    //                problemFight = problemFightTest;
+    //            }
+    //        }
+    //    }
 
-        yield break;
-    }
+    //    yield break;
+    //}
+
+    //private IEnumerator TestWinConsultants()
+    //{
+    //    if (i == 6)
+    //    {
+    //        animator.SetTrigger("DisapearConsultant");
+    //        GameController.instance.MissionUp();
+    //        GameController.Occupe[i, j] = false;
+    //        GameController.instance.UpdateListConsultants();
+    //        Destroy(gameObject, 1.66f);
+    //    }
+
+    //    yield break;
+    //}
 
 }

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50434523161052530}
   - component: {fileID: 61532000554316740}
   - component: {fileID: 95823737205531200}
-  - component: {fileID: 114639910452818000}
+  - component: {fileID: 114062998187589184}
   m_Layer: 0
   m_Name: AMOA
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114639910452818000
+--- !u!114 &114062998187589184
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,11 +114,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1312570307846896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e384ced1ef5c96648b1439735318685a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6517a7e00d4439c4b90b3be5d5543cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zone: {fileID: 1063949796103230, guid: 9b450a8f77fb8a54a8b9e246b0517f85, type: 2}
-  typeCard: 1
   type: AMOA
 --- !u!212 &212431974760682324
 SpriteRenderer:
