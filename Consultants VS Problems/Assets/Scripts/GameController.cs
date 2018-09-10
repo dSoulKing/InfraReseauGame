@@ -50,6 +50,10 @@ public class GameController : MonoBehaviour {
 
     private List<GameObject> handList;
 
+    private string timerComString;
+    public GameObject chronoCom;
+    private TextMesh timerComText;
+
     void Awake()
     {
         //If we don't currently have a game control...
@@ -90,6 +94,8 @@ public class GameController : MonoBehaviour {
         damageBonus = 0;
 
         StartCoroutine(PositionCards());
+
+        timerComText = chronoCom.GetComponent<TextMesh>();
     }
 
     private void Update()
@@ -128,6 +134,8 @@ public class GameController : MonoBehaviour {
         if (timeBoostCom > 0)
         {
             timeBoostCom -= Time.deltaTime;
+            timerComString = timeBoostCom.ToString("F0");
+            timerComText.text = timerComString;
             damageBonus = 10;
         }
         else
@@ -321,12 +329,30 @@ public class GameController : MonoBehaviour {
         timeTestBloc = 50000;
 
         UpdateListProblems();
-        foreach (GameObject problem in problemsInGame)
-            problem.GetComponent<Problems>().EndGameTimer();
+        if (lifePoints <= 0)
+        {
+            foreach (GameObject problem in problemsInGame)
+                problem.GetComponent<Problems>().EndGameTimer();
+
+            foreach (GameObject consultant in consultantsInGame)
+            {
+                consultant.GetComponent<CardConsultant>().EndGameTimer();
+                consultant.GetComponent<CardConsultant>().Lose();
+            }
+        }
+        else
+        {
+            foreach (GameObject problem in problemsInGame)
+            {
+                problem.GetComponent<Problems>().EndGameTimer();
+                problem.GetComponent<Problems>().Lose();
+            }
+
+            foreach (GameObject consultant in consultantsInGame)
+                consultant.GetComponent<CardConsultant>().EndGameTimer();
+        }
 
         UpdateListConsultants();
-        foreach (GameObject consultant in consultantsInGame)
-            consultant.GetComponent<CardConsultant>().EndGameTimer();
     }
 
     public GameObject TestToFight(int i, int j)

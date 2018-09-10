@@ -130,11 +130,11 @@ public class Problems : MonoBehaviour {
     {
         if (i == 0)
         {
-            animator.SetTrigger("DisapearConsultant");
+            animator.SetTrigger("explosionProblem");
             GameController.instance.LifeDown();
             GameController.instance.Occupe[i, j] = false;
             GameController.instance.UpdateListProblems();
-            Destroy(gameObject, 1.66f);
+            Destroy(gameObject,0.35f);
         }
 
         yield break;
@@ -144,5 +144,11 @@ public class Problems : MonoBehaviour {
     {
         timeMove = 50000;
         timeTestWin = 50000;
+    }
+
+    public void Lose()
+    {
+        animator.SetTrigger("explosionProblem");
+        Destroy(gameObject, 0.35f);
     }
 }

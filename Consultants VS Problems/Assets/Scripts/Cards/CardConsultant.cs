@@ -236,4 +236,10 @@ public class CardConsultant : MonoBehaviour {
         timeMove = 50000;
         timeTestWin = 50000;
     }
+
+    public void Lose()
+    {
+        animator.SetTrigger("explosionConsultant");
+        Destroy(gameObject, 0.35f);
+    }
 }
