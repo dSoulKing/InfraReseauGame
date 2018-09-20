@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour {
     public GameObject winText;
     public GameObject loseText;
 
+    public SpriteRenderer background;
+
     //public GameObject zoneCons;
     //public GameObject zoneCom;
     //public GameObject zoneRc;
@@ -53,6 +55,14 @@ public class GameController : MonoBehaviour {
     private string timerComString;
     public GameObject chronoCom;
     private TextMesh timerComText;
+
+    private string lifePointsString;
+    public TextMesh lifeText;
+
+    private string missionPointsString;
+    public TextMesh missionPointsText;
+
+    public GameObject electricFightObject;
 
     void Awake()
     {
@@ -124,12 +134,6 @@ public class GameController : MonoBehaviour {
             timeNewProblem = 8;
             Draw(1, 1);
         }
-
-        //if (timeTestBloc <= 0)
-        //{
-        //    StartCoroutine(TestConsultantsBloc());
-        //    timeTestBloc = 2;
-        //}
 
         if (timeBoostCom > 0)
         {
@@ -304,23 +308,27 @@ public class GameController : MonoBehaviour {
     public void MissionUp()
     {
         missionPoints = missionPoints + 10;
+        missionPointsString = missionPoints.ToString("F0");
+        missionPointsText.text = "Vous avez " + missionPointsString + " points de mission";
         if (missionPoints >= 100)
         {
-            EndGame();
             winText.SetActive(true);
+            EndGame();
         }
-        Debug.Log(missionPoints);
     }
 
     public void LifeDown()
     {
         lifePoints = lifePoints - 10;
+        StartCoroutine(RedFlash());
         if (lifePoints <= 0)
         {
             EndGame();
             loseText.SetActive(true);
         }
-        Debug.Log(lifePoints);
+        lifePointsString = lifePoints.ToString("F0");
+        lifeText.text = lifePointsString;
+
     }
 
     public void EndGame()
@@ -332,24 +340,16 @@ public class GameController : MonoBehaviour {
         if (lifePoints <= 0)
         {
             foreach (GameObject problem in problemsInGame)
-                problem.GetComponent<Problems>().EndGameTimer();
-
+                problem.GetComponent<Problems>().EndGameTimer(true);
             foreach (GameObject consultant in consultantsInGame)
-            {
-                consultant.GetComponent<CardConsultant>().EndGameTimer();
-                consultant.GetComponent<CardConsultant>().Lose();
-            }
+                consultant.GetComponent<CardConsultant>().EndGameTimer(false);
         }
         else
         {
             foreach (GameObject problem in problemsInGame)
-            {
-                problem.GetComponent<Problems>().EndGameTimer();
-                problem.GetComponent<Problems>().Lose();
-            }
-
+                problem.GetComponent<Problems>().EndGameTimer(false);
             foreach (GameObject consultant in consultantsInGame)
-                consultant.GetComponent<CardConsultant>().EndGameTimer();
+                consultant.GetComponent<CardConsultant>().EndGameTimer(true);
         }
 
         UpdateListConsultants();
@@ -368,18 +368,6 @@ public class GameController : MonoBehaviour {
         return problemFight;
     }
 
-    //private IEnumerator TestConsultantsBloc()
-    //{
-    //    foreach (GameObject consultant in consultantsInGame)
-    //        if (consultant.GetComponent<CardConsultant>().Bloc)
-    //        {
-    //            StartCoroutine(Fight(consultant, consultant.GetComponent<CardConsultant>().ProblemFight));
-    //            consultant.GetComponent<CardConsultant>().Bloc = false;
-    //        }
-
-    //    yield break;
-    //}
-
     public IEnumerator Fight(GameObject consultant, GameObject problem)
     {
         while (true)
@@ -387,9 +375,7 @@ public class GameController : MonoBehaviour {
             if (consultant != null && problem != null)
             {
                 CardConsultant consultantScript = consultant.GetComponent<CardConsultant>();
-                //Debug.Log(consultantScript.Vie);
                 Problems problemScript = problem.GetComponent<Problems>();
-                //Debug.Log(problemScript.Vie);
                 if (consultantScript.type == problemScript.type)
                 {
                     consultantScript.Vie -= 10;
@@ -406,6 +392,7 @@ public class GameController : MonoBehaviour {
             {
                 UpdateListConsultants();
                 UpdateListProblems();
+                Destroy(consultant.GetComponent<CardConsultant>().ElectricFightObject);
                 yield break;
             }
         }
@@ -498,5 +485,10 @@ public class GameController : MonoBehaviour {
         yield break;
     }
 
-
+    private IEnumerator RedFlash()
+    {
+        background.color = new Color(1, 0, 0, 1);
+        yield return new WaitForSeconds(0.3f);
+        background.color = new Color(1, 1, 1, 1);
+    }
 }

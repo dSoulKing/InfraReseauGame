@@ -14,7 +14,7 @@ public class ZoneCommercial : MonoBehaviour {
             if (cardClicking.tag == "commercial")
             {
                 Destroy(cardClicking);
-                GameController.timeBoostCom = 15;
+                GameController.timeBoostCom += 15;
                 cardClicking = null;
             }
         }

@@ -140,15 +140,25 @@ public class Problems : MonoBehaviour {
         yield break;
     }
 
-    public void EndGameTimer()
+    public void EndGameTimer(bool win)
     {
         timeMove = 50000;
         timeTestWin = 50000;
+        if (win)
+        {
+            animator.SetTrigger("DisapearProblem");
+            Destroy(gameObject, 1.66f);
+        }
+        else
+        {
+            animator.SetTrigger("explosionProblem");
+            Destroy(gameObject, 0.35f);
+        }
     }
 
-    public void Lose()
-    {
-        animator.SetTrigger("explosionProblem");
-        Destroy(gameObject, 0.35f);
-    }
+    //public void Lose()
+    //{
+    //    animator.SetTrigger("explosionProblem");
+    //    Destroy(gameObject, 0.35f);
+    //}
 }

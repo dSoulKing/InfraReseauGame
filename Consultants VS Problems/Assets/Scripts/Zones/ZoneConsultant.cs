@@ -37,7 +37,6 @@ public class ZoneConsultant : MonoBehaviour {
                 {
                     parent.transform.GetChild(i).gameObject.SetActive(false);
                 }
-                Debug.Log(cardClicking);
             }
     }
 }

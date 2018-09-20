@@ -48,6 +48,8 @@ public class CardConsultant : MonoBehaviour {
 
     private Animator animator;
 
+    private GameObject electricFightObject;
+
     public string type;
     private int vie;
 
@@ -113,6 +115,19 @@ public class CardConsultant : MonoBehaviour {
         set
         {
             problemFight = value;
+        }
+    }
+
+    public GameObject ElectricFightObject
+    {
+        get
+        {
+            return electricFightObject;
+        }
+
+        set
+        {
+            electricFightObject = value;
         }
     }
 
@@ -189,6 +204,7 @@ public class CardConsultant : MonoBehaviour {
             if (vie <= 0)
             {
                 GameController.instance.Occupe[i, j] = false;
+                Destroy(electricFightObject); 
                 Destroy(gameObject);
             }
         }
@@ -209,8 +225,12 @@ public class CardConsultant : MonoBehaviour {
             {
                 GameController.instance.UpdateListProblems();
                 GameObject problemFightTest = GameController.instance.TestToFight(i, j);
+                ElectricFightObject = GameController.instance.electricFightObject;
                 if (problemFightTest != null)
+                {
+                    ElectricFightObject = Instantiate(ElectricFightObject, gameObject.transform.position + new Vector3(0, 0.54f, 0), ElectricFightObject.transform.rotation);
                     StartCoroutine(GameController.instance.Fight(gameObject, problemFightTest));
+                }
             }
         }
 
@@ -222,24 +242,35 @@ public class CardConsultant : MonoBehaviour {
         if (i == 6)
         {
             GameController.instance.Occupe[i, j] = false;
-            animator.SetTrigger("DisapearConsultant");
+            animator.SetTrigger("disapearConsultant");
             GameController.instance.MissionUp();
             GameController.instance.UpdateListConsultants();
             Destroy(gameObject, 1.66f);
+            i++;
         }
-
-        yield break;
+        else
+            yield break;
     }
 
-    public void EndGameTimer()
+    public void EndGameTimer(bool win)
     {
         timeMove = 50000;
         timeTestWin = 50000;
+        if (win)
+        {
+            animator.SetTrigger("disapearConsultant");
+            Destroy(gameObject, 1.66f);
+        }
+        else
+        {
+            animator.SetTrigger("explosionConsultant");
+            Destroy(gameObject, 0.35f);
+        }
     }
 
-    public void Lose()
-    {
-        animator.SetTrigger("explosionConsultant");
-        Destroy(gameObject, 0.35f);
-    }
+    //public void Lose()
+    //{
+    //    animator.SetTrigger("explosionConsultant");
+    //    Destroy(gameObject, 0.35f);
+    //}
 }
