@@ -72,7 +72,7 @@ public class Problems : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         vie = 100;
-        timeMove = 5;
+        timeMove = 4;
         timeTestWin = 1;
     }
 
@@ -82,7 +82,7 @@ public class Problems : MonoBehaviour {
         if (timeMove <= 0)
         {
             StartCoroutine(MoveProblem());
-            timeMove = 5;
+            timeMove = 3;
         }
 
         timeTestWin -= Time.deltaTime;

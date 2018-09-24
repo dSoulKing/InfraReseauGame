@@ -46,12 +46,14 @@ public class TutoScript : MonoBehaviour
     {
         if (pageTutoNb < 4)
             pageTutoNb++;
+        Debug.Log(pageTutoNb);
     }
 
     public void BackButton()
     {
         if (pageTutoNb > 1)
             pageTutoNb--;
+        Debug.Log(pageTutoNb);
     }
 
     public void changeMenuScene()

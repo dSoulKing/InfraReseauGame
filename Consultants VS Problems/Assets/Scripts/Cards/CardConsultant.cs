@@ -135,7 +135,7 @@ public class CardConsultant : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         vie = 100;
-        timeMove = 10;
+        timeMove = 4;
         timeTestWin = 1;
         bloc = false;
         
@@ -192,7 +192,7 @@ public class CardConsultant : MonoBehaviour {
             if (timeMove <= 0)
             {
                 StartCoroutine(MoveConsultants());
-                timeMove = 5;
+                timeMove = 3;
             }
 
             if (timeTestWin <= 0)
@@ -225,10 +225,11 @@ public class CardConsultant : MonoBehaviour {
             {
                 GameController.instance.UpdateListProblems();
                 GameObject problemFightTest = GameController.instance.TestToFight(i, j);
-                ElectricFightObject = GameController.instance.electricFightObject;
+                electricFightObject = GameController.instance.electricFightObject;
                 if (problemFightTest != null)
                 {
-                    ElectricFightObject = Instantiate(ElectricFightObject, gameObject.transform.position + new Vector3(0, 0.54f, 0), ElectricFightObject.transform.rotation);
+                    electricFightObject = Instantiate(electricFightObject, gameObject.transform.position + new Vector3(0, 0.54f, 0), electricFightObject.transform.rotation);
+                    electricFightObject.transform.parent = gameObject.transform;
                     StartCoroutine(GameController.instance.Fight(gameObject, problemFightTest));
                 }
             }
@@ -252,21 +253,21 @@ public class CardConsultant : MonoBehaviour {
             yield break;
     }
 
-    public void EndGameTimer(bool win)
-    {
-        timeMove = 50000;
-        timeTestWin = 50000;
-        if (win)
-        {
-            animator.SetTrigger("disapearConsultant");
-            Destroy(gameObject, 1.66f);
-        }
-        else
-        {
-            animator.SetTrigger("explosionConsultant");
-            Destroy(gameObject, 0.35f);
-        }
-    }
+    //public void EndGameTimer(bool win)
+    //{
+    //    timeMove = 50000;
+    //    timeTestWin = 50000;
+    //    if (win)
+    //    {
+    //        animator.SetTrigger("disapearConsultant");
+    //        Destroy(gameObject, 1.66f);
+    //    }
+    //    else
+    //    {
+    //        animator.SetTrigger("explosionConsultant");
+    //        Destroy(gameObject, 0.35f);
+    //    }
+    //}
 
     //public void Lose()
     //{

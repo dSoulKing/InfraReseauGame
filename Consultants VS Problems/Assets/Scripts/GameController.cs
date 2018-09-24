@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -18,6 +19,8 @@ public class GameController : MonoBehaviour {
 
     public GameObject winText;
     public GameObject loseText;
+
+    public GameObject popUpQuit;
 
     public SpriteRenderer background;
 
@@ -42,6 +45,7 @@ public class GameController : MonoBehaviour {
     
     private float timeNewProblem;
     private float timeTestBloc;
+    private float timeToDraw;
 
     public static float timeBoostCom;
 
@@ -95,6 +99,7 @@ public class GameController : MonoBehaviour {
         
         timeNewProblem = 5;
         timeTestBloc = 2;
+        timeToDraw = 6;
 
         timeBoostCom = 0;
 
@@ -110,29 +115,22 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
-        //if(Occupe[6, 0])
-        //    Debug.Log(Occupe[6, 0]);
-        //if (Occupe[6, 1])
-        //    Debug.Log(Occupe[6, 1]);
-        //if (Occupe[6, 2])
-        //    Debug.Log(Occupe[6, 2]);
-        //if (Occupe[6, 3])
-        //    Debug.Log(Occupe[6, 3]);
-        //if (Occupe[6, 4])
-        //    Debug.Log(Occupe[6, 4]);
-        //if (Occupe[6, 5])
-        //    Debug.Log(Occupe[6, 5]);
-
-        if (newProbOK /*&& problemsInGame.Count < 6*/)
+        if (newProbOK)
             timeNewProblem -= Time.deltaTime;
         timeTestBloc -= Time.deltaTime;
+        timeToDraw -= Time.deltaTime;
 
         if (timeNewProblem <= 0)
         {
             StartCoroutine(NewProblem());
             StartCoroutine(UpdateCaseLibre());
-            timeNewProblem = 8;
+            timeNewProblem = 5;
+        }
+
+        if(timeToDraw <= 0)
+        {
             Draw(1, 1);
+            timeToDraw = 6;
         }
 
         if (timeBoostCom > 0)
@@ -337,22 +335,26 @@ public class GameController : MonoBehaviour {
         timeTestBloc = 50000;
 
         UpdateListProblems();
-        if (lifePoints <= 0)
-        {
-            foreach (GameObject problem in problemsInGame)
-                problem.GetComponent<Problems>().EndGameTimer(true);
-            foreach (GameObject consultant in consultantsInGame)
-                consultant.GetComponent<CardConsultant>().EndGameTimer(false);
-        }
-        else
-        {
-            foreach (GameObject problem in problemsInGame)
-                problem.GetComponent<Problems>().EndGameTimer(false);
-            foreach (GameObject consultant in consultantsInGame)
-                consultant.GetComponent<CardConsultant>().EndGameTimer(true);
-        }
+        //if (lifePoints <= 0)
+        //{
+        //    foreach (GameObject problem in problemsInGame)
+        //        problem.GetComponent<Problems>().EndGameTimer(true);
+        //    foreach (GameObject consultant in consultantsInGame)
+        //        consultant.GetComponent<CardConsultant>().EndGameTimer(false);
+        //}
+        //else
+        //{
+        //    foreach (GameObject problem in problemsInGame)
+        //        problem.GetComponent<Problems>().EndGameTimer(false);
+        //    foreach (GameObject consultant in consultantsInGame)
+        //        consultant.GetComponent<CardConsultant>().EndGameTimer(true);
+        //}
 
         UpdateListConsultants();
+        foreach (GameObject consultant in consultantsInGame)
+            Destroy(consultant);
+        foreach (GameObject problem in problemsInGame)
+            Destroy(problem);
     }
 
     public GameObject TestToFight(int i, int j)
@@ -390,9 +392,10 @@ public class GameController : MonoBehaviour {
             }
             else
             {
+                //Destroy(consultant.GetComponent<CardConsultant>().ElectricFightObject);
+                Destroy(consultant.transform.GetChild(0).gameObject);
                 UpdateListConsultants();
                 UpdateListProblems();
-                Destroy(consultant.GetComponent<CardConsultant>().ElectricFightObject);
                 yield break;
             }
         }
@@ -490,5 +493,16 @@ public class GameController : MonoBehaviour {
         background.color = new Color(1, 0, 0, 1);
         yield return new WaitForSeconds(0.3f);
         background.color = new Color(1, 1, 1, 1);
+    }
+
+
+    public void ClickToQuit()
+    {
+        Instantiate(popUpQuit, popUpQuit.transform.position, popUpQuit.transform.rotation);
+    }
+
+    public void EndGameQuit()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 }
