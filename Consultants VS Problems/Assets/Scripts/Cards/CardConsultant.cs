@@ -208,6 +208,8 @@ public class CardConsultant : MonoBehaviour {
                 Destroy(gameObject);
             }
         }
+        
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0.01f * vie, 0.01f * vie, 0.01f * vie, 1f);
     }
 
     private IEnumerator MoveConsultants()
@@ -221,8 +223,8 @@ public class CardConsultant : MonoBehaviour {
                 i++;
                 GameController.instance.Occupe[i, j] = true;
 
-                if (gameObject.transform.GetChild(0).gameObject != null)
-                    Destroy(gameObject.transform.GetChild(0).gameObject);
+                if (gameObject.transform.childCount != 0)
+                    Destroy(gameObject.transform.GetChild(0).gameObject);             
             }
             else
             {

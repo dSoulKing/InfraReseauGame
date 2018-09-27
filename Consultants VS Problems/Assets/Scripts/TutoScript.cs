@@ -14,6 +14,10 @@ public class TutoScript : MonoBehaviour
     public Sprite page3;
     public Sprite page4;
 
+    public GameObject backButton;
+    public GameObject nextButton;
+    public GameObject playButton;
+
     private int pageTutoNb;
 
     void Start()
@@ -27,18 +31,24 @@ public class TutoScript : MonoBehaviour
         if (pageTutoNb == 1)
         {
             m_image.sprite = page1;
+            backButton.SetActive(false);
         }
         else if (pageTutoNb == 2)
         {
             m_image.sprite = page2;
+            backButton.SetActive(true);
         }
         else if (pageTutoNb == 3)
         {
             m_image.sprite = page3;
+            nextButton.SetActive(true);
+            playButton.SetActive(false);
         }
         else if (pageTutoNb == 4)
         {
             m_image.sprite = page4;
+            nextButton.SetActive(false);
+            playButton.SetActive(true);
         }
     }
 
@@ -46,19 +56,22 @@ public class TutoScript : MonoBehaviour
     {
         if (pageTutoNb < 4)
             pageTutoNb++;
-        Debug.Log(pageTutoNb);
     }
 
     public void BackButton()
     {
         if (pageTutoNb > 1)
             pageTutoNb--;
-        Debug.Log(pageTutoNb);
     }
 
     public void changeMenuScene()
     {
         SceneManager.LoadScene("MenuScene");
+    }
+
+    public void changePlayScene()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
 

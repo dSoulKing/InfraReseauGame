@@ -82,7 +82,14 @@ public class Problems : MonoBehaviour {
         if (timeMove <= 0)
         {
             StartCoroutine(MoveProblem());
-            timeMove = 3;
+            if (GameController.missionPoints < 40)
+                timeMove = 4;
+            else if (GameController.missionPoints < 60)
+                timeMove = 3;
+            else if (GameController.missionPoints < 80)
+                timeMove = 2;
+            else if (GameController.missionPoints < 100)
+                timeMove = 1;
         }
 
         timeTestWin -= Time.deltaTime;
@@ -97,6 +104,8 @@ public class Problems : MonoBehaviour {
             GameController.instance.Occupe[i, j] = false;
             Destroy(gameObject);
         }
+
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0.01f * vie, 0.01f * vie, 0.01f * vie, 1f);
     }
 
     private IEnumerator MoveProblem()
@@ -141,10 +150,4 @@ public class Problems : MonoBehaviour {
             Destroy(gameObject, 0.35f);
         }
     }
-
-    //public void Lose()
-    //{
-    //    animator.SetTrigger("explosionProblem");
-    //    Destroy(gameObject, 0.35f);
-    //}
 }

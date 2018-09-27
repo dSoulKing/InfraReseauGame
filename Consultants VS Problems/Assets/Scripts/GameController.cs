@@ -122,7 +122,14 @@ public class GameController : MonoBehaviour {
         {
             StartCoroutine(NewProblem());
             StartCoroutine(UpdateCaseLibre());
-            timeNewProblem = 5;
+            if (missionPoints < 40)
+                timeNewProblem = 5;
+            else if (missionPoints < 60)
+                timeNewProblem = 4.5f;
+            else if (missionPoints < 80)
+                timeNewProblem = 4;
+            else if (missionPoints < 100)
+                timeNewProblem = 3.5f;
         }
 
         if(timeToDraw <= 0)
