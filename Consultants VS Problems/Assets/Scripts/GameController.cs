@@ -24,9 +24,7 @@ public class GameController : MonoBehaviour {
 
     public SpriteRenderer background;
 
-    //public GameObject zoneCons;
-    //public GameObject zoneCom;
-    //public GameObject zoneRc;
+    public GameObject cerclesZone;
 
     public GameObject locations;
     public GameObject hand;
@@ -307,7 +305,7 @@ public class GameController : MonoBehaviour {
     {
         missionPoints = missionPoints + 10;
         missionPointsString = missionPoints.ToString("F0");
-        missionPointsText.text = "Vous avez " + missionPointsString + " points de mission";
+        missionPointsText.text = "Score : " + missionPointsString;
         if (missionPoints >= 100)
         {
             winText.SetActive(true);
@@ -498,11 +496,20 @@ public class GameController : MonoBehaviour {
 
     public void ClickToQuit()
     {
-        Instantiate(popUpQuit, popUpQuit.transform.position, popUpQuit.transform.rotation);
+        popUpQuit.SetActive(true);
     }
 
     public void EndGameQuit()
     {
         SceneManager.LoadScene("MenuScene");
+    }
+
+    public void Like()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+    public void DontLike()
+    {
+        popUpQuit.SetActive(false);
     }
 }

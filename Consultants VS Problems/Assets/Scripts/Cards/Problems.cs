@@ -101,29 +101,15 @@ public class Problems : MonoBehaviour {
 
     private IEnumerator MoveProblem()
     {
-        if (i > 0)
+        if (i > 0 && !GameController.instance.Occupe[i - 1, j])
         {
-            if (!GameController.instance.Occupe[i - 1, j])
-            {
-                gameObject.transform.Translate(0, -1.05f, 0);
-                GameController.instance.Occupe[i, j] = false;
-                i--;
-                GameController.instance.Occupe[i, j] = true;
-            }
-            //else
-            //{
-            //    foreach (GameObject consultant in consultantsInGame)
-            //    {
-            //        Problems consultantScript = consultant.GetComponent<Problems>();
-            //        if (consultantScript.I == problemScript.I - 1 && consultantScript.J == problemScript.J)
-            //        {
-            //            StartCoroutine(Fight(consultant, problem));
-            //        }
-            //    }
-            //}
+            gameObject.transform.Translate(0, -1.05f, 0);
+            GameController.instance.Occupe[i, j] = false;
+            i--;
+            GameController.instance.Occupe[i, j] = true;
         }
-
-        yield break;
+        else
+            yield break;
     }
 
     private IEnumerator TestLoseProblems()
@@ -136,8 +122,8 @@ public class Problems : MonoBehaviour {
             GameController.instance.UpdateListProblems();
             Destroy(gameObject,0.35f);
         }
-
-        yield break;
+        else
+            yield break;
     }
 
     public void EndGameTimer(bool win)

@@ -138,9 +138,9 @@ public class CardConsultant : MonoBehaviour {
         timeMove = 4;
         timeTestWin = 1;
         bloc = false;
-        
-        zoneParent = GameObject.FindWithTag("Cercles");
-        zone = zoneParent.GetComponentsInChildren<Transform>(true);
+
+        zoneParent = GameController.instance.cerclesZone;/*GameObject.FindWithTag("Cercles");*/
+        //zone = zoneParent.GetComponentsInChildren<Transform>(true);
     }
 
     private void OnMouseDown()
@@ -170,11 +170,11 @@ public class CardConsultant : MonoBehaviour {
 
 
             if (GameController.cardClicking != null)
-                foreach (Transform cercle in zone)
-                    cercle.gameObject.SetActive(true);
+                zoneParent.SetActive(true);/*foreach (Transform cercle in zone)
+                    cercle.gameObject.SetActive(true);*/
             else
-                foreach (Transform cercle in zone)
-                    cercle.gameObject.SetActive(false);
+                zoneParent.SetActive(false);/*foreach (Transform cercle in zone)
+                    cercle.gameObject.SetActive(false);*/
         }
     }
 
@@ -220,6 +220,9 @@ public class CardConsultant : MonoBehaviour {
                 GameController.instance.Occupe[i, j] = false;
                 i++;
                 GameController.instance.Occupe[i, j] = true;
+
+                if (gameObject.transform.GetChild(0).gameObject != null)
+                    Destroy(gameObject.transform.GetChild(0).gameObject);
             }
             else
             {
@@ -234,8 +237,8 @@ public class CardConsultant : MonoBehaviour {
                 }
             }
         }
-
-        yield break;
+        else
+            yield break;
     }
 
     private IEnumerator TestWinConsultants()
@@ -252,26 +255,4 @@ public class CardConsultant : MonoBehaviour {
         else
             yield break;
     }
-
-    //public void EndGameTimer(bool win)
-    //{
-    //    timeMove = 50000;
-    //    timeTestWin = 50000;
-    //    if (win)
-    //    {
-    //        animator.SetTrigger("disapearConsultant");
-    //        Destroy(gameObject, 1.66f);
-    //    }
-    //    else
-    //    {
-    //        animator.SetTrigger("explosionConsultant");
-    //        Destroy(gameObject, 0.35f);
-    //    }
-    //}
-
-    //public void Lose()
-    //{
-    //    animator.SetTrigger("explosionConsultant");
-    //    Destroy(gameObject, 0.35f);
-    //}
 }

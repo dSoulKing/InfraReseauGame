@@ -20,20 +20,20 @@ public class ZoneRecruteur : MonoBehaviour {
         }
         finally
         {
-            if (GameController.instance.Occupe[0, 5])
-                Debug.Log(GameController.instance.Occupe[0, 5]);
-            if (GameController.instance.Occupe[1, 5])
-                Debug.Log(GameController.instance.Occupe[1, 5]);
-            if (GameController.instance.Occupe[2, 5])
-                Debug.Log(GameController.instance.Occupe[2, 5]);
-            if (GameController.instance.Occupe[3, 5])
-                Debug.Log(GameController.instance.Occupe[3, 5]);
-            if (GameController.instance.Occupe[4, 5])
-                Debug.Log(GameController.instance.Occupe[4, 5]);
-            if (GameController.instance.Occupe[5, 5])
-                Debug.Log(GameController.instance.Occupe[5, 5]);
-            if (GameController.instance.Occupe[6, 5])
-                Debug.Log(GameController.instance.Occupe[6, 5]);
+            //if (GameController.instance.Occupe[0, 5])
+            //    Debug.Log(GameController.instance.Occupe[0, 5]);
+            //if (GameController.instance.Occupe[1, 5])
+            //    Debug.Log(GameController.instance.Occupe[1, 5]);
+            //if (GameController.instance.Occupe[2, 5])
+            //    Debug.Log(GameController.instance.Occupe[2, 5]);
+            //if (GameController.instance.Occupe[3, 5])
+            //    Debug.Log(GameController.instance.Occupe[3, 5]);
+            //if (GameController.instance.Occupe[4, 5])
+            //    Debug.Log(GameController.instance.Occupe[4, 5]);
+            //if (GameController.instance.Occupe[5, 5])
+            //    Debug.Log(GameController.instance.Occupe[5, 5]);
+            //if (GameController.instance.Occupe[6, 5])
+            //    Debug.Log(GameController.instance.Occupe[6, 5]);
         }
     }
 }
