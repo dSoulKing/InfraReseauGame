@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour {
                 timeNewProblem = 3.5f;
                 if (pioche2)
                 {
-                    Draw(2, 1);
+                    Draw(1, 1);
                     pioche2 = !pioche2;
                 }
             }
