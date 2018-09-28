@@ -66,6 +66,9 @@ public class GameController : MonoBehaviour {
 
     public GameObject electricFightObject;
 
+    private bool pioche1;
+    private bool pioche2;
+
     void Awake()
     {
         //If we don't currently have a game control...
@@ -109,6 +112,9 @@ public class GameController : MonoBehaviour {
         StartCoroutine(PositionCards());
 
         timerComText = chronoCom.GetComponent<TextMesh>();
+
+        pioche1 = true;
+        pioche2 = true;
     }
 
     private void Update()
@@ -127,9 +133,23 @@ public class GameController : MonoBehaviour {
             else if (missionPoints < 60)
                 timeNewProblem = 4.5f;
             else if (missionPoints < 80)
+            {
                 timeNewProblem = 4;
+                if (pioche1)
+                {
+                    Draw(1, 1);
+                    pioche1 = !pioche1;
+                }
+            }
             else if (missionPoints < 100)
+            {
                 timeNewProblem = 3.5f;
+                if (pioche2)
+                {
+                    Draw(2, 1);
+                    pioche2 = !pioche2;
+                }
+            }
         }
 
         if(timeToDraw <= 0)
@@ -518,5 +538,9 @@ public class GameController : MonoBehaviour {
     public void DontLike()
     {
         popUpQuit.SetActive(false);
+    }
+    public void Rejouer()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }

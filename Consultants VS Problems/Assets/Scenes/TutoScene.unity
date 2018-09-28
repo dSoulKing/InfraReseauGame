@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   page1: {fileID: 21300000, guid: 383a28cf884849c439faf927b3ccd3e4, type: 3}
-  page2: {fileID: 21300000, guid: c50de8d0dbd69324c98194e37fad37d6, type: 3}
+  page2: {fileID: 21300000, guid: a2ceb1c0a13048943993fcfb65148449, type: 3}
   page3: {fileID: 21300000, guid: 69019effc4be59847b735e14a0ae87e0, type: 3}
   page4: {fileID: 21300000, guid: 8b9820febb3a4b04daf61de6e2c8b06b, type: 3}
   backButton: {fileID: 1563867154}
